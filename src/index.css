@@ -4,6 +4,26 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+/* AzarMehr Font */
+@font-face {
+  font-family: 'AzarMehr';
+  src: url('https://noormahbookcity.ir/wp-content/uploads/fonts/400-AzarMehr-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'AzarMehr';
+  src: url('https://noormahbookcity.ir/wp-content/uploads/fonts/500-AzarMehr-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'AzarMehr';
+  src: url('https://noormahbookcity.ir/wp-content/uploads/fonts/700-AzarMehr-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
 /* Industrial Design System for Batis Modern
    Wood & Metal Furniture E-commerce
    Style: Industrial, Bold, Minimal + Fluent UI + Glassmorphism
@@ -146,13 +166,13 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Vazirmatn', system-ui, sans-serif;
+    font-family: 'AzarMehr', 'Vazirmatn', system-ui, sans-serif;
     direction: rtl;
   }
 
-  /* Apply Vazirmatn to all text */
+  /* Apply AzarMehr to all text */
   h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, label, li {
-    font-family: 'Vazirmatn', system-ui, sans-serif;
+    font-family: 'AzarMehr', 'Vazirmatn', system-ui, sans-serif;
   }
 }
 
@@ -458,12 +478,17 @@
     text-wrap: balance;
   }
 
-  .font-vazir {
-    font-family: 'Vazirmatn', system-ui, sans-serif;
+  .font-azarmehr {
+    font-family: 'AzarMehr', 'Vazirmatn', system-ui, sans-serif;
   }
 
-  .font-vazir-bold {
-    font-family: 'Vazirmatn', system-ui, sans-serif;
+  .font-azarmehr-medium {
+    font-family: 'AzarMehr', 'Vazirmatn', system-ui, sans-serif;
+    font-weight: 500;
+  }
+
+  .font-azarmehr-bold {
+    font-family: 'AzarMehr', 'Vazirmatn', system-ui, sans-serif;
     font-weight: 700;
   }
 
