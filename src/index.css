@@ -2,95 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Industrial Design System for Batis Modern
+   Wood & Metal Furniture E-commerce
+   Style: Industrial, Bold, Minimal
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Background Colors */
+    --background: 0 0% 96%;
+    --foreground: 0 0% 10%;
 
+    /* Card & Surface Colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Matte Black */
+    --primary: 0 0% 10%;
+    --primary-foreground: 0 0% 96%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Light Gray */
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Colors */
+    --muted: 0 0% 88%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Walnut Brown */
+    --accent: 25 59% 31%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* CTA - Brick Orange */
+    --cta: 16 100% 50%;
+    --cta-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    /* Border & Input */
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 25 59% 31%;
 
+    --radius: 0.25rem;
+
+    /* Custom Industrial Colors */
+    --steel: 0 0% 25%;
+    --wood: 25 59% 31%;
+    --wood-light: 30 40% 55%;
+    --industrial-orange: 16 100% 50%;
+    --ochre: 45 100% 51%;
+
+    /* Gradients */
+    --gradient-industrial: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 20%) 100%);
+    --gradient-wood: linear-gradient(135deg, hsl(25 59% 31%) 0%, hsl(30 40% 45%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(16 100% 50%) 0%, hsl(30 100% 55%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px hsl(0 0% 0% / 0.08);
+    --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.12);
+    --shadow-lg: 0 8px 24px hsl(0 0% 0% / 0.16);
+    --shadow-industrial: 0 8px 32px hsl(0 0% 0% / 0.2);
+
+    /* Sidebar */
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
+    --sidebar-foreground: 0 0% 26%;
+    --sidebar-primary: 0 0% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 25 59% 31%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 8%;
+    --foreground: 0 0% 96%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 10%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 22%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 25 59% 45%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --cta: 16 100% 55%;
+    --cta-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 96%;
+
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 25 59% 45%;
+
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 25 76% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 25 59% 45%;
   }
 }
 
@@ -99,7 +131,141 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Vazirmatn', 'Inter', system-ui, sans-serif;
+    direction: rtl;
+  }
+}
+
+@layer components {
+  /* Industrial Button Styles */
+  .btn-industrial {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: var(--gradient-industrial);
+  }
+
+  .btn-industrial::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, hsl(0 0% 20%) 0%, hsl(0 0% 30%) 100%);
+  }
+
+  .btn-industrial:hover::before {
+    @apply opacity-100;
+  }
+
+  .btn-cta {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: var(--gradient-cta);
+  }
+
+  .btn-cta::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, hsl(20 100% 55%) 0%, hsl(35 100% 60%) 100%);
+  }
+
+  .btn-cta:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Product Card Hover Effect */
+  .product-card {
+    @apply relative overflow-hidden transition-all duration-500;
+  }
+
+  .product-card::after {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none;
+    background: linear-gradient(180deg, transparent 60%, hsl(0 0% 0% / 0.4) 100%);
+  }
+
+  .product-card:hover::after {
+    @apply opacity-100;
+  }
+
+  .product-card:hover {
+    @apply -translate-y-2;
+    box-shadow: var(--shadow-industrial);
+  }
+
+  /* Section Title Styles */
+  .section-title {
+    @apply relative inline-block font-bold;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 right-0 h-1 w-16 bg-accent;
+  }
+
+  /* Industrial Texture Overlay */
+  .texture-metal {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  /* Hotspot Styles */
+  .hotspot {
+    @apply absolute w-8 h-8 rounded-full cursor-pointer;
+    background: hsl(var(--cta));
+    animation: pulse-hotspot 2s infinite;
+  }
+
+  .hotspot::before {
+    content: '+';
+    @apply absolute inset-0 flex items-center justify-center text-white font-bold text-lg;
+  }
+
+  @keyframes pulse-hotspot {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 hsl(var(--cta) / 0.4);
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 12px hsl(var(--cta) / 0);
+    }
+  }
+
+  /* Scroll Animations */
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-8 transition-all duration-700;
+  }
+
+  .animate-on-scroll.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-industrial {
+    font-family: 'Inter', 'Vazirmatn', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .bg-gradient-industrial {
+    background: var(--gradient-industrial);
+  }
+
+  .bg-gradient-wood {
+    background: var(--gradient-wood);
+  }
+
+  .bg-gradient-cta {
+    background: var(--gradient-cta);
+  }
+
+  .shadow-industrial {
+    box-shadow: var(--shadow-industrial);
   }
 }
