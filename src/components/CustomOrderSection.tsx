@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, Send, Ruler, Palette, TreeDeciduous } from "lucide-react";
+import { MessageCircle, Send, Ruler, Palette, TreeDeciduous, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,18 +15,23 @@ const CustomOrderSection = () => {
     color: "",
     description: "",
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitted(true);
     toast.success("درخواست شما با موفقیت ثبت شد! به زودی با شما تماس می‌گیریم.");
-    setFormData({
-      name: "",
-      phone: "",
-      dimensions: "",
-      woodType: "",
-      color: "",
-      description: "",
-    });
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        name: "",
+        phone: "",
+        dimensions: "",
+        woodType: "",
+        color: "",
+        description: "",
+      });
+    }, 3000);
   };
 
   const handleWhatsApp = () => {
@@ -34,92 +39,107 @@ const CustomOrderSection = () => {
     window.open(`https://wa.me/989123456789?text=${message}`, "_blank");
   };
 
+  const features = [
+    { icon: Ruler, title: "ابعاد دلخواه", desc: "هر اندازه‌ای که نیاز دارید" },
+    { icon: TreeDeciduous, title: "انتخاب چوب", desc: "نراد، بلوط، گردو و..." },
+    { icon: Palette, title: "رنگ سفارشی", desc: "از پالت رنگی ما انتخاب کنید" },
+  ];
+
   return (
-    <section id="custom" className="py-20 bg-gradient-to-br from-primary to-steel">
-      <div className="container mx-auto px-4">
+    <section id="custom" className="py-24 relative overflow-hidden">
+      {/* Background with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-steel to-primary" />
+      <div className="absolute inset-0 texture-metal opacity-50" />
+
+      {/* Decorative blurs */}
+      <div className="absolute top-20 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-cta/20 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 relative">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.1, 0.9, 0.2, 1] }}
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-accent-foreground rounded text-sm font-medium mb-6">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-block px-5 py-2 glass-dark text-primary-foreground rounded-full text-sm font-vazir font-medium mb-6"
+            >
               سفارش سفارشی
-            </span>
-            <h2 className="text-3xl md:text-4xl font-industrial font-bold text-primary-foreground mb-6">
+            </motion.span>
+            <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary-foreground mb-6">
               محصول دلخواهتان را
               <br />
               <span className="text-ochre">سفارش دهید</span>
             </h2>
-            <p className="text-primary-foreground/80 text-lg mb-8 leading-relaxed">
+            <p className="text-primary-foreground/85 text-lg mb-8 leading-relaxed font-vazir">
               ابعاد، نوع چوب و رنگ دلخواه خود را مشخص کنید. تیم ما طراحی و تولید
               محصول منحصربه‌فرد شما را انجام می‌دهد.
             </p>
 
             {/* Features */}
             <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-accent/20 rounded flex items-center justify-center">
-                  <Ruler className="w-6 h-6 text-ochre" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-primary-foreground">ابعاد دلخواه</h4>
-                  <p className="text-primary-foreground/70 text-sm">هر اندازه‌ای که نیاز دارید</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-accent/20 rounded flex items-center justify-center">
-                  <TreeDeciduous className="w-6 h-6 text-ochre" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-primary-foreground">انتخاب چوب</h4>
-                  <p className="text-primary-foreground/70 text-sm">نراد، بلوط، گردو و...</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-accent/20 rounded flex items-center justify-center">
-                  <Palette className="w-6 h-6 text-ochre" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-primary-foreground">رنگ سفارشی</h4>
-                  <p className="text-primary-foreground/70 text-sm">از پالت رنگی ما انتخاب کنید</p>
-                </div>
-              </div>
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  className="flex items-center gap-4 group"
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="w-14 h-14 glass-dark rounded-xl flex items-center justify-center group-hover:shadow-fluent-16 transition-shadow"
+                  >
+                    <feature.icon className="w-7 h-7 text-ochre" />
+                  </motion.div>
+                  <div>
+                    <h4 className="font-vazir-bold text-primary-foreground">{feature.title}</h4>
+                    <p className="text-primary-foreground/70 text-sm font-vazir">{feature.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
             {/* WhatsApp Button */}
-            <Button
-              variant="cta"
-              size="lg"
-              onClick={handleWhatsApp}
-              className="w-full sm:w-auto"
-            >
-              <MessageCircle className="w-5 h-5" />
-              ارسال درخواست در واتساپ
-            </Button>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Button
+                variant="cta"
+                size="lg"
+                onClick={handleWhatsApp}
+                className="w-full sm:w-auto font-vazir"
+              >
+                <MessageCircle className="w-5 h-5" />
+                ارسال درخواست در واتساپ
+              </Button>
+            </motion.div>
           </motion.div>
 
-          {/* Form */}
+          {/* Form - Glassmorphism */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.1, 0.9, 0.2, 1] }}
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-card p-8 rounded-lg shadow-industrial"
+              className="glass-card p-8 rounded-3xl shadow-fluent-64"
             >
-              <h3 className="text-xl font-industrial font-bold text-primary mb-6">
+              <h3 className="text-xl font-vazir-bold text-primary mb-6">
                 فرم سفارش سفارشی
               </h3>
 
-              <div className="grid gap-4">
+              <div className="grid gap-5">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
+                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
                       نام و نام خانوادگی
                     </label>
                     <Input
@@ -129,10 +149,11 @@ const CustomOrderSection = () => {
                       }
                       placeholder="نام شما"
                       required
+                      className="font-vazir glass border-border/50 focus:border-accent"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
+                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
                       شماره تماس
                     </label>
                     <Input
@@ -142,13 +163,14 @@ const CustomOrderSection = () => {
                       }
                       placeholder="۰۹۱۲۳۴۵۶۷۸۹"
                       required
+                      className="font-vazir glass border-border/50 focus:border-accent"
                     />
                   </div>
                 </div>
 
                 <div className="grid sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
+                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
                       ابعاد (سانتیمتر)
                     </label>
                     <Input
@@ -157,10 +179,11 @@ const CustomOrderSection = () => {
                         setFormData({ ...formData, dimensions: e.target.value })
                       }
                       placeholder="۱۲۰×۶۰×۷۵"
+                      className="font-vazir glass border-border/50 focus:border-accent"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
+                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
                       نوع چوب
                     </label>
                     <Input
@@ -169,10 +192,11 @@ const CustomOrderSection = () => {
                         setFormData({ ...formData, woodType: e.target.value })
                       }
                       placeholder="نراد، بلوط..."
+                      className="font-vazir glass border-border/50 focus:border-accent"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
+                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
                       رنگ
                     </label>
                     <Input
@@ -181,12 +205,13 @@ const CustomOrderSection = () => {
                         setFormData({ ...formData, color: e.target.value })
                       }
                       placeholder="مشکی، گردویی..."
+                      className="font-vazir glass border-border/50 focus:border-accent"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-vazir font-medium text-foreground mb-2">
                     توضیحات بیشتر
                   </label>
                   <Textarea
@@ -196,13 +221,31 @@ const CustomOrderSection = () => {
                     }
                     placeholder="جزئیات سفارش خود را بنویسید..."
                     rows={4}
+                    className="font-vazir glass border-border/50 focus:border-accent"
                   />
                 </div>
 
-                <Button type="submit" variant="industrial" size="lg" className="w-full">
-                  <Send className="w-5 h-5" />
-                  ثبت درخواست
-                </Button>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    type="submit"
+                    variant="industrial"
+                    size="lg"
+                    className="w-full font-vazir"
+                    disabled={isSubmitted}
+                  >
+                    {isSubmitted ? (
+                      <>
+                        <Check className="w-5 h-5" />
+                        ثبت شد!
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        ثبت درخواست
+                      </>
+                    )}
+                  </Button>
+                </motion.div>
               </div>
             </form>
           </motion.div>

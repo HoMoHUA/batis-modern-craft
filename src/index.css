@@ -2,12 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* Industrial Design System for Batis Modern
    Wood & Metal Furniture E-commerce
-   Style: Industrial, Bold, Minimal
+   Style: Industrial, Bold, Minimal + Fluent UI + Glassmorphism
 */
 
 @layer base {
@@ -52,7 +51,7 @@
     --input: 0 0% 85%;
     --ring: 25 59% 31%;
 
-    --radius: 0.25rem;
+    --radius: 0.5rem;
 
     /* Custom Industrial Colors */
     --steel: 0 0% 25%;
@@ -61,16 +60,23 @@
     --industrial-orange: 16 100% 50%;
     --ochre: 45 100% 51%;
 
+    /* Glassmorphism */
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 0 0% 100% / 0.3;
+    --glass-blur: 20px;
+
     /* Gradients */
     --gradient-industrial: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 20%) 100%);
     --gradient-wood: linear-gradient(135deg, hsl(25 59% 31%) 0%, hsl(30 40% 45%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(16 100% 50%) 0%, hsl(30 100% 55%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(16 100% 50%) 0%, hsl(45 100% 51%) 100%);
 
-    /* Shadows */
-    --shadow-sm: 0 2px 4px hsl(0 0% 0% / 0.08);
-    --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.12);
-    --shadow-lg: 0 8px 24px hsl(0 0% 0% / 0.16);
-    --shadow-industrial: 0 8px 32px hsl(0 0% 0% / 0.2);
+    /* Fluent Shadows - Depth layers */
+    --shadow-2: 0 1px 2px hsl(0 0% 0% / 0.06), 0 1px 3px hsl(0 0% 0% / 0.1);
+    --shadow-4: 0 2px 4px hsl(0 0% 0% / 0.06), 0 2px 6px hsl(0 0% 0% / 0.12);
+    --shadow-8: 0 4px 8px hsl(0 0% 0% / 0.08), 0 4px 12px hsl(0 0% 0% / 0.14);
+    --shadow-16: 0 8px 16px hsl(0 0% 0% / 0.1), 0 8px 24px hsl(0 0% 0% / 0.16);
+    --shadow-64: 0 32px 64px hsl(0 0% 0% / 0.14), 0 32px 80px hsl(0 0% 0% / 0.2);
+    --shadow-industrial: 0 12px 40px hsl(0 0% 0% / 0.2);
 
     /* Sidebar */
     --sidebar-background: 0 0% 98%;
@@ -115,6 +121,9 @@
     --input: 0 0% 22%;
     --ring: 25 59% 45%;
 
+    --glass-bg: 0 0% 15% / 0.6;
+    --glass-border: 0 0% 100% / 0.1;
+
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 96%;
     --sidebar-primary: 25 76% 48%;
@@ -137,52 +146,175 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Vazirmatn', 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
     direction: rtl;
+  }
+
+  /* Apply Vazirmatn to all text */
+  h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, label, li {
+    font-family: 'Vazirmatn', system-ui, sans-serif;
   }
 }
 
 @layer components {
-  /* Industrial Button Styles */
+  /* ═══════════════════════════════════════════
+     GLASSMORPHISM COMPONENTS
+     ═══════════════════════════════════════════ */
+  
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  .glass-card {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-8);
+  }
+
+  .glass-header {
+    background: hsl(0 0% 100% / 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid hsl(0 0% 0% / 0.05);
+  }
+
+  .glass-dark {
+    background: hsl(0 0% 10% / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(0 0% 100% / 0.1);
+  }
+
+  /* ═══════════════════════════════════════════
+     FLUENT UI MOTION SYSTEM
+     ═══════════════════════════════════════════ */
+  
+  /* Fluent easing curves */
+  .fluent-ease {
+    transition-timing-function: cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .fluent-decelerate {
+    transition-timing-function: cubic-bezier(0, 0, 0, 1);
+  }
+
+  .fluent-accelerate {
+    transition-timing-function: cubic-bezier(1, 0, 1, 1);
+  }
+
+  /* Fluent depth shadow on hover */
+  .fluent-shadow {
+    transition: box-shadow 0.2s cubic-bezier(0.1, 0.9, 0.2, 1),
+                transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .fluent-shadow:hover {
+    box-shadow: var(--shadow-16);
+    transform: translateY(-2px);
+  }
+
+  /* Fluent reveal effect */
+  .fluent-reveal {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fluent-reveal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      hsl(0 0% 100% / 0.1),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .fluent-reveal:hover::before {
+    opacity: 1;
+  }
+
+  /* ═══════════════════════════════════════════
+     INDUSTRIAL BUTTON STYLES
+     ═══════════════════════════════════════════ */
+  
   .btn-industrial {
-    @apply relative overflow-hidden transition-all duration-300;
+    @apply relative overflow-hidden;
     background: var(--gradient-industrial);
+    transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
   }
 
   .btn-industrial::before {
     content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    @apply absolute inset-0 opacity-0;
     background: linear-gradient(135deg, hsl(0 0% 20%) 0%, hsl(0 0% 30%) 100%);
+    transition: opacity 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .btn-industrial:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-16);
   }
 
   .btn-industrial:hover::before {
     @apply opacity-100;
   }
 
+  .btn-industrial:active {
+    transform: translateY(0);
+  }
+
   .btn-cta {
-    @apply relative overflow-hidden transition-all duration-300;
+    @apply relative overflow-hidden;
     background: var(--gradient-cta);
+    transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
   }
 
   .btn-cta::before {
     content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
-    background: linear-gradient(135deg, hsl(20 100% 55%) 0%, hsl(35 100% 60%) 100%);
+    @apply absolute inset-0 opacity-0;
+    background: linear-gradient(135deg, hsl(20 100% 55%) 0%, hsl(50 100% 55%) 100%);
+    transition: opacity 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px hsl(16 100% 50% / 0.35);
   }
 
   .btn-cta:hover::before {
     @apply opacity-100;
   }
 
-  /* Product Card Hover Effect */
+  .btn-cta:active {
+    transform: translateY(-1px);
+  }
+
+  /* ═══════════════════════════════════════════
+     PRODUCT CARD WITH FLUENT ANIMATIONS
+     ═══════════════════════════════════════════ */
+  
   .product-card {
-    @apply relative overflow-hidden transition-all duration-500;
+    @apply relative overflow-hidden;
+    transition: all 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
   }
 
   .product-card::after {
     content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none;
-    background: linear-gradient(180deg, transparent 60%, hsl(0 0% 0% / 0.4) 100%);
+    @apply absolute inset-0 opacity-0 pointer-events-none;
+    background: linear-gradient(180deg, transparent 50%, hsl(0 0% 0% / 0.5) 100%);
+    transition: opacity 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
   }
 
   .product-card:hover::after {
@@ -190,10 +322,14 @@
   }
 
   .product-card:hover {
-    @apply -translate-y-2;
-    box-shadow: var(--shadow-industrial);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-64);
   }
 
+  /* ═══════════════════════════════════════════
+     ANIMATED ELEMENTS
+     ═══════════════════════════════════════════ */
+  
   /* Section Title Styles */
   .section-title {
     @apply relative inline-block font-bold;
@@ -201,7 +337,13 @@
 
   .section-title::after {
     content: '';
-    @apply absolute bottom-0 right-0 h-1 w-16 bg-accent;
+    @apply absolute bottom-0 right-0 h-1 w-0 bg-accent;
+    transition: width 0.6s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .section-title:hover::after,
+  .section-title.active::after {
+    @apply w-16;
   }
 
   /* Industrial Texture Overlay */
@@ -209,11 +351,14 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   }
 
-  /* Hotspot Styles */
+  /* ═══════════════════════════════════════════
+     HOTSPOT ANIMATIONS
+     ═══════════════════════════════════════════ */
+  
   .hotspot {
     @apply absolute w-8 h-8 rounded-full cursor-pointer;
     background: hsl(var(--cta));
-    animation: pulse-hotspot 2s infinite;
+    animation: pulse-hotspot 2s cubic-bezier(0.1, 0.9, 0.2, 1) infinite;
   }
 
   .hotspot::before {
@@ -224,21 +369,87 @@
   @keyframes pulse-hotspot {
     0%, 100% {
       transform: scale(1);
-      box-shadow: 0 0 0 0 hsl(var(--cta) / 0.4);
+      box-shadow: 0 0 0 0 hsl(var(--cta) / 0.5);
     }
     50% {
-      transform: scale(1.1);
-      box-shadow: 0 0 0 12px hsl(var(--cta) / 0);
+      transform: scale(1.15);
+      box-shadow: 0 0 0 16px hsl(var(--cta) / 0);
     }
   }
 
-  /* Scroll Animations */
+  /* ═══════════════════════════════════════════
+     SCROLL & REVEAL ANIMATIONS
+     ═══════════════════════════════════════════ */
+  
   .animate-on-scroll {
-    @apply opacity-0 translate-y-8 transition-all duration-700;
+    @apply opacity-0 translate-y-10;
+    transition: all 0.8s cubic-bezier(0.1, 0.9, 0.2, 1);
   }
 
   .animate-on-scroll.visible {
     @apply opacity-100 translate-y-0;
+  }
+
+  /* Stagger children animation */
+  .stagger-children > * {
+    @apply opacity-0 translate-y-6;
+    transition: all 0.5s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; }
+  .stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; }
+  .stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; }
+  .stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; }
+  .stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; }
+  .stagger-children.visible > *:nth-child(6) { transition-delay: 0.6s; }
+
+  .stagger-children.visible > * {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* ═══════════════════════════════════════════
+     INTERACTIVE HOVER EFFECTS
+     ═══════════════════════════════════════════ */
+  
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-16);
+  }
+
+  .hover-glow {
+    transition: box-shadow 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
+  }
+
+  .hover-scale {
+    transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  /* Link underline animation */
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 right-0 w-0 h-0.5 bg-accent;
+    transition: width 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
   }
 }
 
@@ -247,10 +458,13 @@
     text-wrap: balance;
   }
 
-  .font-industrial {
-    font-family: 'Inter', 'Vazirmatn', system-ui, sans-serif;
+  .font-vazir {
+    font-family: 'Vazirmatn', system-ui, sans-serif;
+  }
+
+  .font-vazir-bold {
+    font-family: 'Vazirmatn', system-ui, sans-serif;
     font-weight: 700;
-    letter-spacing: -0.02em;
   }
 
   .bg-gradient-industrial {
@@ -265,7 +479,33 @@
     background: var(--gradient-cta);
   }
 
+  .shadow-fluent-2 {
+    box-shadow: var(--shadow-2);
+  }
+
+  .shadow-fluent-4 {
+    box-shadow: var(--shadow-4);
+  }
+
+  .shadow-fluent-8 {
+    box-shadow: var(--shadow-8);
+  }
+
+  .shadow-fluent-16 {
+    box-shadow: var(--shadow-16);
+  }
+
+  .shadow-fluent-64 {
+    box-shadow: var(--shadow-64);
+  }
+
   .shadow-industrial {
     box-shadow: var(--shadow-industrial);
+  }
+
+  /* Glassmorphism utilities */
+  .backdrop-blur-glass {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 }
