@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Shield, Wallet, TreePine } from "lucide-react";
 
 const features = [
@@ -19,48 +19,90 @@ const features = [
   },
 ];
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.1, 0.9, 0.2, 1] as const,
+    },
+  },
+};
+
 const ValueProposition = () => {
   return (
-    <section className="py-20 bg-card">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-card relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-cta/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.6, ease: [0.1, 0.9, 0.2, 1] }}
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-industrial font-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary mb-4">
             چرا <span className="text-accent">باتیس مدرن؟</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-vazir">
             ما با ترکیب هنر سنتی صنعتگری و تکنولوژی مدرن، محصولاتی می‌سازیم که
             سال‌ها کنار شما می‌مانند.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid md:grid-cols-3 gap-8"
+        >
+          {features.map((feature) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="group bg-background p-8 rounded border border-border hover:border-accent transition-all duration-300 hover:shadow-industrial"
+              variants={itemVariants}
+              className="group glass-card p-8 rounded-2xl hover-lift fluent-reveal cursor-pointer"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-accent to-wood-light rounded flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <feature.icon className="w-7 h-7 text-accent-foreground" />
-              </div>
-              <h3 className="text-xl font-industrial font-bold text-primary mb-3">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="w-16 h-16 bg-gradient-to-br from-accent to-wood-light rounded-xl flex items-center justify-center mb-6 shadow-fluent-8"
+              >
+                <feature.icon className="w-8 h-8 text-accent-foreground" />
+              </motion.div>
+              <h3 className="text-xl font-vazir-bold text-primary mb-3">
                 {feature.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed font-vazir">
                 {feature.description}
               </p>
+              
+              {/* Hover accent line */}
+              <motion.div
+                className="h-1 bg-gradient-to-r from-accent to-cta rounded-full mt-6"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.4, ease: [0.1, 0.9, 0.2, 1] }}
+                style={{ originX: 1 }}
+              />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

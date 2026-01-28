@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import productDesk from "@/assets/product-desk.jpg";
@@ -41,46 +42,61 @@ const categories = [
 ];
 
 const ProductsSection = () => {
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
+
   return (
-    <section id="products" className="py-20 bg-card">
-      <div className="container mx-auto px-4">
+    <section id="products" className="py-24 bg-card relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cta/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.1, 0.9, 0.2, 1] }}
           className="text-center mb-12"
         >
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded text-sm font-medium mb-4">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-5 py-2 glass-card text-primary rounded-full text-sm font-vazir font-medium mb-4"
+          >
             کاتالوگ محصولات
-          </span>
-          <h2 className="text-3xl md:text-4xl font-industrial font-bold text-primary mb-4">
+          </motion.span>
+          <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary mb-4">
             محصولات <span className="text-accent">باتیس مدرن</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-vazir">
             مجموعه‌ای از بهترین محصولات چوب و فلز با طراحی مدرن و کیفیت صنعتی
           </p>
         </motion.div>
 
-        {/* Categories */}
+        {/* Categories - Glassmorphism tabs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.1, 0.9, 0.2, 1] }}
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
           {categories.map((cat, index) => (
-            <button
+            <motion.button
               key={cat}
-              className={`px-5 py-2 rounded text-sm font-medium transition-all duration-300 ${
-                index === 0
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground"
+              onClick={() => setActiveCategory(index)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-6 py-2.5 rounded-full text-sm font-vazir font-medium transition-all duration-300 ${
+                activeCategory === index
+                  ? "bg-primary text-primary-foreground shadow-fluent-8"
+                  : "glass hover:bg-primary/10 text-foreground"
               }`}
             >
               {cat}
-            </button>
+            </motion.button>
           ))}
         </motion.div>
 
@@ -89,62 +105,100 @@ const ProductsSection = () => {
           {products.map((product, index) => (
             <motion.div
               key={product.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="product-card group bg-background rounded border border-border overflow-hidden"
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.15,
+                ease: [0.1, 0.9, 0.2, 1]
+              }}
+              onMouseEnter={() => setHoveredProduct(product.id)}
+              onMouseLeave={() => setHoveredProduct(null)}
+              className="product-card group glass-card rounded-2xl overflow-hidden"
             >
               {/* Image */}
               <div className="relative h-72 overflow-hidden">
-                <img
+                <motion.img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover"
+                  animate={{ scale: hoveredProduct === product.id ? 1.08 : 1 }}
+                  transition={{ duration: 0.6, ease: [0.1, 0.9, 0.2, 1] }}
                 />
                 
                 {/* Badge */}
                 {product.badge && (
-                  <span className={`absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded ${
-                    product.badge === "پرفروش" 
-                      ? "bg-cta text-cta-foreground" 
-                      : "bg-accent text-accent-foreground"
-                  }`}>
+                  <motion.span
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className={`absolute top-4 right-4 px-4 py-1.5 text-xs font-vazir font-medium rounded-full shadow-fluent-4 ${
+                      product.badge === "پرفروش" 
+                        ? "bg-cta text-cta-foreground" 
+                        : "bg-accent text-accent-foreground"
+                    }`}
+                  >
                     {product.badge}
-                  </span>
+                  </motion.span>
                 )}
 
-                {/* Quick Actions */}
-                <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                  <Button variant="secondary" size="icon" className="rounded-full">
-                    <Eye className="w-5 h-5" />
-                  </Button>
-                  <Button variant="cta" size="icon" className="rounded-full">
-                    <ShoppingCart className="w-5 h-5" />
-                  </Button>
-                </div>
+                {/* Quick Actions - Glassmorphism overlay */}
+                <AnimatePresence>
+                  {hoveredProduct === product.id && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 glass-dark flex items-center justify-center gap-4"
+                    >
+                      <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        exit={{ scale: 0, rotate: 180 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      >
+                        <Button variant="secondary" size="icon" className="rounded-full w-12 h-12 glass">
+                          <Eye className="w-5 h-5" />
+                        </Button>
+                      </motion.div>
+                      <motion.div
+                        initial={{ scale: 0, rotate: 180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        exit={{ scale: 0, rotate: -180 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
+                      >
+                        <Button variant="cta" size="icon" className="rounded-full w-12 h-12">
+                          <ShoppingCart className="w-5 h-5" />
+                        </Button>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <span className="text-xs text-accent font-medium">
+                <span className="text-xs text-accent font-vazir font-medium">
                   {product.category}
                 </span>
-                <h3 className="text-lg font-industrial font-bold text-primary mt-1 mb-3">
+                <h3 className="text-lg font-vazir-bold text-primary mt-1 mb-3">
                   {product.name}
                 </h3>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-2xl font-industrial font-bold text-cta">
+                    <span className="text-2xl font-vazir-bold text-cta">
                       {product.price}
                     </span>
-                    <span className="text-sm text-muted-foreground mr-1">
+                    <span className="text-sm text-muted-foreground mr-1 font-vazir">
                       تومان
                     </span>
                   </div>
-                  <Button variant="outline" size="sm">
-                    مشاهده
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button variant="outline" size="sm" className="font-vazir">
+                      مشاهده
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
@@ -153,15 +207,17 @@ const ProductsSection = () => {
 
         {/* View All Button */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <Button variant="industrial" size="lg">
-            مشاهده همه محصولات
-          </Button>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button variant="industrial" size="lg" className="font-vazir">
+              مشاهده همه محصولات
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </section>

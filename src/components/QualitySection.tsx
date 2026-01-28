@@ -26,22 +26,31 @@ const qualityFeatures = [
 
 const QualitySection = () => {
   return (
-    <section id="quality" className="py-20 bg-background texture-metal">
-      <div className="container mx-auto px-4">
+    <section id="quality" className="py-24 bg-background texture-metal relative">
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-10 w-32 h-32 bg-accent/10 rounded-full blur-2xl" />
+      <div className="absolute bottom-20 left-10 w-40 h-40 bg-cta/10 rounded-full blur-2xl" />
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.1, 0.9, 0.2, 1] }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded text-sm font-medium mb-4">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-5 py-2 glass-card text-accent rounded-full text-sm font-vazir font-medium mb-4"
+          >
             کالبدشکافی کیفیت
-          </span>
-          <h2 className="text-3xl md:text-4xl font-industrial font-bold text-primary mb-4">
+          </motion.span>
+          <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary mb-4">
             چه چیزی ما را <span className="text-accent">متفاوت</span> می‌کند؟
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-vazir">
             هر جزء محصولات ما با دقت انتخاب شده تا کیفیتی ماندگار تضمین شود
           </p>
         </motion.div>
@@ -50,37 +59,57 @@ const QualitySection = () => {
           {qualityFeatures.map((feature, index) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="group relative overflow-hidden rounded bg-card border border-border hover:border-accent transition-all duration-500"
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.15,
+                ease: [0.1, 0.9, 0.2, 1] 
+              }}
+              className="group glass-card rounded-2xl overflow-hidden hover-lift"
             >
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
-                <img
+                <motion.img
                   src={feature.image}
                   alt={feature.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.6, ease: [0.1, 0.9, 0.2, 1] }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-                <span className="absolute top-4 right-4 px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent" />
+                
+                {/* Badge */}
+                <motion.span
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="absolute top-4 right-4 px-4 py-1.5 glass text-primary-foreground text-xs font-vazir font-medium rounded-full"
+                >
                   {feature.badge}
-                </span>
+                </motion.span>
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-industrial font-bold text-primary mb-2">
+                <h3 className="text-xl font-vazir-bold text-primary mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed font-vazir">
                   {feature.description}
                 </p>
               </div>
 
               {/* Hover Accent Line */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-cta scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right" />
+              <motion.div
+                className="h-1 bg-gradient-to-r from-accent to-cta"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.4, ease: [0.1, 0.9, 0.2, 1] }}
+                style={{ originX: 1 }}
+              />
             </motion.div>
           ))}
         </div>

@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, X, ShoppingCart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import galleryRoom from "@/assets/gallery-room.jpg";
 
 const hotspots = [
@@ -9,34 +11,44 @@ const hotspots = [
 ];
 
 const GallerySection = () => {
+  const [activeHotspot, setActiveHotspot] = useState<number | null>(null);
+
   return (
-    <section id="gallery" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="gallery" className="py-24 bg-background relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.1, 0.9, 0.2, 1] }}
           className="text-center mb-12"
         >
-          <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded text-sm font-medium mb-4">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-5 py-2 glass-card text-accent rounded-full text-sm font-vazir font-medium mb-4"
+          >
             گالری تعاملی
-          </span>
-          <h2 className="text-3xl md:text-4xl font-industrial font-bold text-primary mb-4">
+          </motion.span>
+          <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary mb-4">
             محصولات در <span className="text-accent">فضای واقعی</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-vazir">
             روی نقاط مشخص شده کلیک کنید تا اطلاعات محصول را ببینید
           </p>
         </motion.div>
 
         {/* Interactive Gallery */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative rounded-lg overflow-hidden shadow-industrial"
+          transition={{ duration: 0.8, ease: [0.1, 0.9, 0.2, 1] }}
+          className="relative rounded-3xl overflow-hidden shadow-fluent-64"
         >
           <img
             src={galleryRoom}
@@ -44,39 +56,91 @@ const GallerySection = () => {
             className="w-full h-[500px] md:h-[600px] object-cover"
           />
           
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
 
           {/* Hotspots */}
-          {hotspots.map((spot) => (
+          {hotspots.map((spot, index) => (
             <motion.div
               key={spot.id}
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: spot.id * 0.2, type: "spring" }}
-              className="absolute group cursor-pointer"
+              transition={{ 
+                delay: 0.5 + index * 0.15, 
+                type: "spring", 
+                stiffness: 300,
+                damping: 20
+              }}
+              className="absolute cursor-pointer"
               style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
+              onClick={() => setActiveHotspot(activeHotspot === spot.id ? null : spot.id)}
             >
               {/* Pulse Ring */}
-              <span className="absolute inset-0 w-10 h-10 -translate-x-1/2 -translate-y-1/2 bg-cta/30 rounded-full animate-ping" />
+              <motion.span
+                animate={{ 
+                  scale: [1, 1.5, 1],
+                  opacity: [0.5, 0, 0.5]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity,
+                  ease: [0.1, 0.9, 0.2, 1]
+                }}
+                className="absolute inset-0 w-12 h-12 -translate-x-1/2 -translate-y-1/2 bg-cta/40 rounded-full"
+              />
               
               {/* Hotspot Button */}
-              <div className="relative w-10 h-10 -translate-x-1/2 -translate-y-1/2 bg-cta rounded-full flex items-center justify-center text-cta-foreground shadow-lg group-hover:scale-110 transition-transform">
-                <Plus className="w-5 h-5" />
-              </div>
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative w-12 h-12 -translate-x-1/2 -translate-y-1/2 bg-cta rounded-full flex items-center justify-center text-cta-foreground shadow-fluent-16"
+              >
+                <AnimatePresence mode="wait">
+                  {activeHotspot === spot.id ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                    >
+                      <X className="w-5 h-5" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="plus"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                    >
+                      <Plus className="w-5 h-5" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
-              {/* Tooltip */}
-              <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-card border border-border rounded-lg p-4 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap z-10">
-                <h4 className="font-bold text-primary mb-1">{spot.name}</h4>
-                <div className="flex items-center gap-2">
-                  <span className="text-cta font-bold">{spot.price}</span>
-                  <span className="text-xs text-muted-foreground">تومان</span>
-                </div>
-                <button className="mt-2 text-xs text-accent hover:underline">
-                  مشاهده محصول ←
-                </button>
-              </div>
+              {/* Tooltip - Glassmorphism */}
+              <AnimatePresence>
+                {activeHotspot === spot.id && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8, x: 20 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, x: 20 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    className="absolute right-full mr-4 top-1/2 -translate-y-1/2 glass-card rounded-2xl p-5 shadow-fluent-16 min-w-[200px] z-20"
+                  >
+                    <h4 className="font-vazir-bold text-primary mb-2">{spot.name}</h4>
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-xl font-vazir-bold text-cta">{spot.price}</span>
+                      <span className="text-xs text-muted-foreground font-vazir">تومان</span>
+                    </div>
+                    <Button variant="cta" size="sm" className="w-full font-vazir">
+                      <ShoppingCart className="w-4 h-4" />
+                      افزودن به سبد
+                    </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </motion.div>
