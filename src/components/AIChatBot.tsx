@@ -135,7 +135,7 @@ const AIChatBot = () => {
             exit={{ scale: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-4 left-4 z-50 w-14 h-14 bg-gradient-to-br from-accent to-cta rounded-[20px] flex items-center justify-center shadow-fluent-16 text-white hover:shadow-fluent-24 transition-shadow"
+            className="fixed bottom-20 left-4 z-50 w-14 h-14 bg-gradient-to-br from-accent to-cta rounded-[20px] flex items-center justify-center shadow-fluent-16 text-white hover:shadow-fluent-24 transition-shadow sm:bottom-24 sm:left-6"
             style={{
               marginBottom: "env(safe-area-inset-bottom, 0px)",
               marginLeft: "env(safe-area-inset-left, 0px)",
