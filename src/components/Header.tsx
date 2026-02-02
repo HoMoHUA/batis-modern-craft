@@ -40,16 +40,17 @@ const Header = () => {
       setIsFloating(currentScrollY > 100);
       
       // Smart toolbar visibility - only show when scrolling up
-      // Threshold of 5px to avoid micro-movements triggering changes
+      // But keep visible if menu is open
       if (currentScrollY > 100) {
         if (scrollDelta < -5) {
           // Scrolling UP - show toolbar
           setShowToolbar(true);
         } else if (scrollDelta > 5) {
-          // Scrolling DOWN - hide toolbar
-          setShowToolbar(false);
-          setIsMobileMenuOpen(false);
-          setIsDesktopMenuOpen(false);
+          // Scrolling DOWN - hide toolbar ONLY if menu is closed
+          // Check current state using refs to avoid stale closure
+          if (!isMobileMenuOpen && !isDesktopMenuOpen) {
+            setShowToolbar(false);
+          }
         }
       } else {
         // At top of page, always show
@@ -59,7 +60,7 @@ const Header = () => {
       lastScrollY.current = currentScrollY;
       ticking.current = false;
     });
-  }, []);
+  }, [isMobileMenuOpen, isDesktopMenuOpen]);
 
   useEffect(() => {
     // Passive event listener for better scroll performance
@@ -470,7 +471,7 @@ const Header = () => {
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="absolute right-0 top-18 glass-header rounded-[20px] p-3 flex flex-col items-center gap-2 shadow-fluent-16 origin-top-right"
+                  className="absolute right-16 top-1/2 -translate-y-1/2 glass-header rounded-[20px] p-3 flex flex-col items-center gap-2 shadow-fluent-16 origin-right"
                   style={{ willChange: 'transform, opacity' }}
                 >
                   {/* Logo */}

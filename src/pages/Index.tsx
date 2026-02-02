@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import NeXTPixelBadge from "@/components/NeXTPixelBadge";
 import Preloader from "@/components/Preloader";
+import AIChatBot from "@/components/AIChatBot";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,7 @@ const Index = () => {
         </main>
         <Footer />
         <NeXTPixelBadge />
+        <AIChatBot />
       </div>
     </>
   );
