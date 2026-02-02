@@ -8,6 +8,7 @@ import CustomOrderSection from "@/components/CustomOrderSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import NeXTPixelBadge from "@/components/NeXTPixelBadge";
 
 const Index = () => {
   return (
@@ -24,6 +25,7 @@ const Index = () => {
         <TestimonialsSection />
       </main>
       <Footer />
+      <NeXTPixelBadge />
     </div>
   );
 };

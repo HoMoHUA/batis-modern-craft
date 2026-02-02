@@ -362,7 +362,7 @@ const ProductsSection = () => {
             transition={{ delay: 0.2 }}
             className="inline-block px-6 py-2.5 glass-card text-primary rounded-[20px] text-sm font-azarmehr-medium mb-6"
           >
-            محصولات باتیس مدرن
+            محصولات صنایع مدرن
           </motion.span>
           <h2 className="text-4xl md:text-5xl font-azarmehr-bold text-primary mb-6">
             <span className="text-accent">صنعتگری</span> در خدمت زیبایی
