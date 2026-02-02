@@ -53,12 +53,14 @@ const StickyFeatureSection = () => {
   return (
     <section 
       ref={containerRef}
+      id="quality"
       className="relative bg-primary"
       style={{ height: `${features.length * 100}vh` }}
     >
-      <div className="sticky top-0 h-screen flex overflow-hidden">
-        {/* Left - Sticky Image */}
-        <div className="w-1/2 h-full relative hidden lg:block">
+      {/* Desktop: Sticky scroll */}
+      <div className="sticky top-0 h-screen overflow-hidden hidden lg:flex">
+        {/* Left - Sticky Image (RTL: appears on right) */}
+        <div className="w-1/2 h-full relative">
           {features.map((feature, index) => (
             <motion.div
               key={feature.id}
@@ -85,7 +87,12 @@ const StickyFeatureSection = () => {
                   scale: useTransform(
                     scrollYProgress,
                     [index * 0.33, (index + 1) * 0.33],
-                    [1.1, 1]
+                    [1.15, 1]
+                  ),
+                  y: useTransform(
+                    scrollYProgress,
+                    [index * 0.33, (index + 1) * 0.33],
+                    [30, 0]
                   )
                 }}
               />
@@ -94,12 +101,12 @@ const StickyFeatureSection = () => {
           ))}
         </div>
 
-        {/* Right - Scrolling Content */}
-        <div className="w-full lg:w-1/2 h-full flex flex-col justify-center px-8 lg:px-16">
+        {/* Right - Content */}
+        <div className="w-1/2 h-full flex flex-col justify-center relative px-16">
           {features.map((feature, index) => (
             <motion.div
               key={feature.id}
-              className="absolute w-full lg:w-1/2 px-8 lg:px-16"
+              className="absolute inset-0 flex flex-col justify-center px-16"
               style={{
                 opacity: useTransform(
                   scrollYProgress,
@@ -113,24 +120,31 @@ const StickyFeatureSection = () => {
                 ),
                 y: useTransform(
                   scrollYProgress,
-                  [index * 0.33, index * 0.33 + 0.1],
-                  [50, 0]
+                  [index * 0.33 - 0.1, index * 0.33 + 0.1],
+                  [80, 0]
                 )
               }}
             >
               {/* Feature Number */}
               <motion.span 
-                className="text-8xl font-azarmehr-bold text-primary-foreground/10 mb-4 block"
+                className="text-[120px] font-azarmehr-bold text-primary-foreground/10 mb-4 block leading-none"
+                style={{
+                  x: useTransform(
+                    scrollYProgress,
+                    [index * 0.33, (index + 1) * 0.33],
+                    [-50, 0]
+                  )
+                }}
               >
                 0{index + 1}
               </motion.span>
 
               {/* Content */}
-              <span className="text-ochre text-sm font-azarmehr-medium mb-2 block">
+              <span className="text-ochre text-sm font-azarmehr-medium mb-3 block">
                 {feature.subtitle}
               </span>
               
-              <h3 className="text-3xl lg:text-5xl font-azarmehr-bold text-primary-foreground mb-6">
+              <h3 className="text-4xl lg:text-5xl font-azarmehr-bold text-primary-foreground mb-6 leading-tight">
                 {feature.title}
               </h3>
               
@@ -139,9 +153,9 @@ const StickyFeatureSection = () => {
               </p>
 
               {/* Stats */}
-              <div className="flex gap-8">
+              <div className="flex gap-6">
                 {feature.stats.map((stat) => (
-                  <div key={stat.label} className="glass-dark rounded-xl px-6 py-4">
+                  <div key={stat.label} className="glass-dark rounded-[20px] px-6 py-4">
                     <div className="text-2xl font-azarmehr-bold text-ochre">
                       {stat.value}
                     </div>
@@ -156,8 +170,81 @@ const StickyFeatureSection = () => {
         </div>
       </div>
 
-      {/* Progress Dots */}
-      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-3">
+      {/* Mobile: Stacked sections with scroll animations */}
+      <div className="lg:hidden">
+        {features.map((feature, index) => (
+          <div 
+            key={feature.id}
+            className="min-h-screen flex flex-col relative"
+          >
+            {/* Image - fixed during scroll */}
+            <div className="sticky top-0 h-[50vh] w-full overflow-hidden">
+              <motion.img
+                src={feature.image}
+                alt={feature.title}
+                className="w-full h-full object-cover"
+                initial={{ scale: 1.2 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/30 to-primary" />
+              
+              {/* Feature Number Overlay */}
+              <div className="absolute bottom-4 right-4">
+                <span className="text-7xl font-azarmehr-bold text-primary-foreground/20">
+                  0{index + 1}
+                </span>
+              </div>
+            </div>
+
+            {/* Content - scrolls over image */}
+            <motion.div 
+              className="relative bg-primary px-6 py-10 -mt-20 rounded-t-[30px] z-10"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-ochre text-sm font-azarmehr-medium mb-2 block">
+                {feature.subtitle}
+              </span>
+              
+              <h3 className="text-2xl sm:text-3xl font-azarmehr-bold text-primary-foreground mb-4">
+                {feature.title}
+              </h3>
+              
+              <p className="text-primary-foreground/70 text-base leading-relaxed mb-6 font-azarmehr">
+                {feature.description}
+              </p>
+
+              {/* Stats */}
+              <div className="flex gap-4">
+                {feature.stats.map((stat) => (
+                  <motion.div 
+                    key={stat.label} 
+                    className="glass-dark rounded-[20px] px-5 py-3 flex-1"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="text-xl font-azarmehr-bold text-ochre">
+                      {stat.value}
+                    </div>
+                    <div className="text-primary-foreground/60 text-xs font-azarmehr">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        ))}
+      </div>
+
+      {/* Progress Dots - RIGHT side for RTL */}
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-3">
         {features.map((_, index) => (
           <motion.div
             key={index}

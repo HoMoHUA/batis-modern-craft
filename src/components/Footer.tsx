@@ -24,15 +24,15 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-6">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className="w-12 h-12 bg-gradient-to-br from-accent to-wood-light rounded-xl flex items-center justify-center shadow-fluent-8"
+                className="w-12 h-12 bg-gradient-to-br from-accent to-wood-light rounded-[20px] flex items-center justify-center shadow-fluent-8"
               >
-                <span className="text-accent-foreground font-vazir-bold text-xl">ب</span>
+                <span className="text-accent-foreground font-azarmehr-bold text-xl">ب</span>
               </motion.div>
-              <span className="font-vazir-bold text-2xl">
+              <span className="font-azarmehr-bold text-2xl">
                 باتیس مدرن
               </span>
             </div>
-            <p className="text-primary-foreground/70 leading-relaxed mb-6 font-vazir">
+            <p className="text-primary-foreground/70 leading-relaxed mb-6 font-azarmehr">
               تولیدکننده مبلمان چوب و فلز با کیفیت صنعتی. استحکام فلز، گرمای
               چوب؛ مستقیم از کارگاه به فضای شما.
             </p>
@@ -46,7 +46,7 @@ const Footer = () => {
                   href={social.href}
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-11 h-11 glass-dark rounded-xl flex items-center justify-center hover:bg-accent transition-colors"
+                  className="w-11 h-11 glass-dark rounded-[20px] flex items-center justify-center hover:bg-accent transition-colors"
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
@@ -61,7 +61,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h4 className="font-vazir-bold text-lg mb-6">
+            <h4 className="font-azarmehr-bold text-lg mb-6">
               دسترسی سریع
             </h4>
             <ul className="space-y-3">
@@ -75,7 +75,7 @@ const Footer = () => {
                   >
                     <a
                       href="#"
-                      className="text-primary-foreground/70 hover:text-ochre transition-colors font-vazir link-underline inline-block"
+                      className="text-primary-foreground/70 hover:text-ochre transition-colors font-azarmehr link-underline inline-block"
                     >
                       {link}
                     </a>
@@ -92,7 +92,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h4 className="font-vazir-bold text-lg mb-6">
+            <h4 className="font-azarmehr-bold text-lg mb-6">
               دسته‌بندی محصولات
             </h4>
             <ul className="space-y-3">
@@ -106,7 +106,7 @@ const Footer = () => {
                   >
                     <a
                       href="#"
-                      className="text-primary-foreground/70 hover:text-ochre transition-colors font-vazir link-underline inline-block"
+                      className="text-primary-foreground/70 hover:text-ochre transition-colors font-azarmehr link-underline inline-block"
                     >
                       {cat}
                     </a>
@@ -123,7 +123,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h4 className="font-vazir-bold text-lg mb-6">
+            <h4 className="font-azarmehr-bold text-lg mb-6">
               ارتباط با ما
             </h4>
             <ul className="space-y-5">
@@ -139,17 +139,17 @@ const Footer = () => {
                   transition={{ delay: 0.3 + index * 0.05 }}
                   className="flex items-start gap-4 group"
                 >
-                  <div className="w-10 h-10 glass-dark rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                  <div className="w-10 h-10 glass-dark rounded-[20px] flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <item.icon className="w-5 h-5 text-ochre" />
                   </div>
                   <div>
-                    <p className="text-primary-foreground/60 text-sm font-vazir">{item.label}</p>
+                    <p className="text-primary-foreground/60 text-sm font-azarmehr">{item.label}</p>
                     {item.href ? (
-                      <a href={item.href} className="font-vazir font-medium hover:text-ochre transition-colors">
+                      <a href={item.href} className="font-azarmehr font-medium hover:text-ochre transition-colors">
                         {item.value}
                       </a>
                     ) : (
-                      <p className="font-vazir font-medium">{item.value}</p>
+                      <p className="font-azarmehr font-medium">{item.value}</p>
                     )}
                   </div>
                 </motion.li>
@@ -168,10 +168,10 @@ const Footer = () => {
             viewport={{ once: true }}
             className="flex flex-col md:flex-row justify-between items-center gap-4"
           >
-            <p className="text-primary-foreground/60 text-sm font-vazir">
+            <p className="text-primary-foreground/60 text-sm font-azarmehr">
               © {currentYear} باتیس مدرن. تمامی حقوق محفوظ است.
             </p>
-            <p className="text-primary-foreground/60 text-sm font-vazir">
+            <p className="text-primary-foreground/60 text-sm font-azarmehr">
               طراحی و توسعه توسط{" "}
               <a href="#" className="text-ochre hover:underline font-medium">
                 NeXTPixel

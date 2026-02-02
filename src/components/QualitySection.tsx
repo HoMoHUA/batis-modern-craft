@@ -95,7 +95,7 @@ const QualitySection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, type: "spring", stiffness: 200 }}
-            className="inline-block px-6 py-2.5 glass-card text-accent rounded-full text-sm font-azarmehr-medium mb-6"
+            className="inline-block px-6 py-2.5 glass-card text-accent rounded-[20px] text-sm font-azarmehr-medium mb-6"
           >
             کالبدشکافی کیفیت
           </motion.span>
@@ -139,7 +139,7 @@ const QualitySection = () => {
                 scale: 1.03,
                 transition: { duration: 0.4 }
               }}
-              className="group glass-card rounded-2xl overflow-hidden cursor-pointer"
+              className="group glass-card rounded-[20px] overflow-hidden cursor-pointer"
               style={{ transformStyle: "preserve-3d" }}
             >
               {/* Image with zoom on scroll */}
@@ -162,7 +162,7 @@ const QualitySection = () => {
                   whileInView={{ opacity: 1, x: 0, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.1, type: "spring" }}
-                  className="absolute top-4 right-4 px-5 py-2 glass text-primary-foreground text-xs font-azarmehr-medium rounded-full shadow-fluent-8"
+                  className="absolute top-4 right-4 px-5 py-2 glass text-primary-foreground text-xs font-azarmehr-medium rounded-[20px] shadow-fluent-8"
                   style={{ transform: "translateZ(30px)" }}
                 >
                   {feature.badge}

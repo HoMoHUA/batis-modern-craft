@@ -47,14 +47,14 @@ const TestimonialsSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block px-5 py-2 glass-card text-accent rounded-full text-sm font-vazir font-medium mb-4"
+            className="inline-block px-5 py-2 glass-card text-accent rounded-[20px] text-sm font-azarmehr font-medium mb-4"
           >
             نظرات مشتریان
           </motion.span>
-          <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-azarmehr-bold text-primary mb-4">
             مشتریان <span className="text-accent">راضی</span> ما
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto font-vazir">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-azarmehr">
             تجربه مشتریانی که از محصولات باتیس مدرن استفاده کرده‌اند
           </p>
         </motion.div>
@@ -72,7 +72,7 @@ const TestimonialsSection = () => {
                 ease: [0.1, 0.9, 0.2, 1]
               }}
               whileHover={{ y: -8 }}
-              className="glass-card p-8 rounded-2xl relative group hover:shadow-fluent-16 transition-all duration-300"
+              className="glass-card p-8 rounded-[20px] relative group hover:shadow-fluent-16 transition-all duration-300"
             >
               {/* Quote Icon */}
               <motion.div
@@ -99,26 +99,26 @@ const TestimonialsSection = () => {
               </div>
 
               {/* Text */}
-              <p className="text-foreground leading-relaxed mb-6 font-vazir relative z-10">
+              <p className="text-foreground leading-relaxed mb-6 font-azarmehr relative z-10">
                 "{testimonial.text}"
               </p>
 
               {/* Author */}
               <div className="flex items-center justify-between pt-4 border-t border-border">
                 <div>
-                  <h4 className="font-vazir-bold text-primary">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground font-vazir">
+                  <h4 className="font-azarmehr-bold text-primary">{testimonial.name}</h4>
+                  <p className="text-sm text-muted-foreground font-azarmehr">
                     {testimonial.location}
                   </p>
                 </div>
-                <span className="text-xs glass text-accent px-4 py-2 rounded-full font-vazir">
+                <span className="text-xs glass text-accent px-4 py-2 rounded-[20px] font-azarmehr">
                   {testimonial.product}
                 </span>
               </div>
 
               {/* Hover accent line */}
               <motion.div
-                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-cta rounded-b-2xl"
+                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-cta rounded-b-[20px]"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.4, ease: [0.1, 0.9, 0.2, 1] }}

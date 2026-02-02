@@ -88,7 +88,7 @@ const HeroSection = () => {
             animate="visible"
             variants={textVariants}
           >
-            <span className="inline-block px-6 py-3 glass-dark rounded-full text-primary-foreground text-sm font-azarmehr-medium mb-8 border border-primary-foreground/10">
+            <span className="inline-block px-6 py-3 glass-dark rounded-[20px] text-primary-foreground text-sm font-azarmehr-medium mb-8 border border-primary-foreground/10">
               تولیدی مبلمان چوب و فلز
             </span>
           </motion.div>
@@ -191,7 +191,7 @@ const HeroSection = () => {
                   y: -5,
                   transition: { duration: 0.2 }
                 }}
-                className="glass-dark px-8 py-5 rounded-2xl border border-primary-foreground/10 cursor-default"
+                className="glass-dark px-8 py-5 rounded-[20px] border border-primary-foreground/10 cursor-default"
               >
                 <div className="text-3xl md:text-4xl font-azarmehr-bold text-ochre">
                   {stat.value}
@@ -219,7 +219,7 @@ const HeroSection = () => {
           className="flex flex-col items-center gap-3"
         >
           <span className="text-primary-foreground/50 text-sm font-azarmehr">اسکرول کنید</span>
-          <div className="w-7 h-12 glass-dark rounded-full flex justify-center p-2 border border-primary-foreground/10">
+          <div className="w-7 h-12 glass-dark rounded-[20px] flex justify-center p-2 border border-primary-foreground/10">
             <motion.div
               animate={{ y: [0, 16, 0], opacity: [1, 0.3, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: [0.1, 0.9, 0.2, 1] }}

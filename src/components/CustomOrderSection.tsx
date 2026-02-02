@@ -68,16 +68,16 @@ const CustomOrderSection = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block px-5 py-2 glass-dark text-primary-foreground rounded-full text-sm font-vazir font-medium mb-6"
+              className="inline-block px-5 py-2 glass-dark text-primary-foreground rounded-[20px] text-sm font-azarmehr font-medium mb-6"
             >
               سفارش سفارشی
             </motion.span>
-            <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary-foreground mb-6">
+            <h2 className="text-3xl md:text-4xl font-azarmehr-bold text-primary-foreground mb-6">
               محصول دلخواهتان را
               <br />
               <span className="text-ochre">سفارش دهید</span>
             </h2>
-            <p className="text-primary-foreground/85 text-lg mb-8 leading-relaxed font-vazir">
+            <p className="text-primary-foreground/85 text-lg mb-8 leading-relaxed font-azarmehr">
               ابعاد، نوع چوب و رنگ دلخواه خود را مشخص کنید. تیم ما طراحی و تولید
               محصول منحصربه‌فرد شما را انجام می‌دهد.
             </p>
@@ -95,13 +95,13 @@ const CustomOrderSection = () => {
                 >
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-14 h-14 glass-dark rounded-xl flex items-center justify-center group-hover:shadow-fluent-16 transition-shadow"
+                    className="w-14 h-14 glass-dark rounded-[20px] flex items-center justify-center group-hover:shadow-fluent-16 transition-shadow"
                   >
                     <feature.icon className="w-7 h-7 text-ochre" />
                   </motion.div>
                   <div>
-                    <h4 className="font-vazir-bold text-primary-foreground">{feature.title}</h4>
-                    <p className="text-primary-foreground/70 text-sm font-vazir">{feature.desc}</p>
+                    <h4 className="font-azarmehr-bold text-primary-foreground">{feature.title}</h4>
+                    <p className="text-primary-foreground/70 text-sm font-azarmehr">{feature.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -113,7 +113,7 @@ const CustomOrderSection = () => {
                 variant="cta"
                 size="lg"
                 onClick={handleWhatsApp}
-                className="w-full sm:w-auto font-vazir"
+                className="w-full sm:w-auto font-azarmehr"
               >
                 <MessageCircle className="w-5 h-5" />
                 ارسال درخواست در واتساپ
@@ -130,16 +130,16 @@ const CustomOrderSection = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="glass-card p-8 rounded-3xl shadow-fluent-64"
+              className="glass-card p-8 rounded-[20px] shadow-fluent-64"
             >
-              <h3 className="text-xl font-vazir-bold text-primary mb-6">
+              <h3 className="text-xl font-azarmehr-bold text-primary mb-6">
                 فرم سفارش سفارشی
               </h3>
 
               <div className="grid gap-5">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
+                    <label className="block text-sm font-azarmehr font-medium text-foreground mb-2">
                       نام و نام خانوادگی
                     </label>
                     <Input
@@ -149,11 +149,11 @@ const CustomOrderSection = () => {
                       }
                       placeholder="نام شما"
                       required
-                      className="font-vazir glass border-border/50 focus:border-accent"
+                      className="font-azarmehr glass border-border/50 focus:border-accent rounded-[20px]"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
+                    <label className="block text-sm font-azarmehr font-medium text-foreground mb-2">
                       شماره تماس
                     </label>
                     <Input
@@ -163,14 +163,14 @@ const CustomOrderSection = () => {
                       }
                       placeholder="۰۹۱۲۳۴۵۶۷۸۹"
                       required
-                      className="font-vazir glass border-border/50 focus:border-accent"
+                      className="font-azarmehr glass border-border/50 focus:border-accent rounded-[20px]"
                     />
                   </div>
                 </div>
 
                 <div className="grid sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
+                    <label className="block text-sm font-azarmehr font-medium text-foreground mb-2">
                       ابعاد (سانتیمتر)
                     </label>
                     <Input
@@ -179,11 +179,11 @@ const CustomOrderSection = () => {
                         setFormData({ ...formData, dimensions: e.target.value })
                       }
                       placeholder="۱۲۰×۶۰×۷۵"
-                      className="font-vazir glass border-border/50 focus:border-accent"
+                      className="font-azarmehr glass border-border/50 focus:border-accent rounded-[20px]"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
+                    <label className="block text-sm font-azarmehr font-medium text-foreground mb-2">
                       نوع چوب
                     </label>
                     <Input
@@ -192,11 +192,11 @@ const CustomOrderSection = () => {
                         setFormData({ ...formData, woodType: e.target.value })
                       }
                       placeholder="نراد، بلوط..."
-                      className="font-vazir glass border-border/50 focus:border-accent"
+                      className="font-azarmehr glass border-border/50 focus:border-accent rounded-[20px]"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-vazir font-medium text-foreground mb-2">
+                    <label className="block text-sm font-azarmehr font-medium text-foreground mb-2">
                       رنگ
                     </label>
                     <Input
@@ -205,13 +205,13 @@ const CustomOrderSection = () => {
                         setFormData({ ...formData, color: e.target.value })
                       }
                       placeholder="مشکی، گردویی..."
-                      className="font-vazir glass border-border/50 focus:border-accent"
+                      className="font-azarmehr glass border-border/50 focus:border-accent rounded-[20px]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-vazir font-medium text-foreground mb-2">
+                  <label className="block text-sm font-azarmehr font-medium text-foreground mb-2">
                     توضیحات بیشتر
                   </label>
                   <Textarea
@@ -221,7 +221,7 @@ const CustomOrderSection = () => {
                     }
                     placeholder="جزئیات سفارش خود را بنویسید..."
                     rows={4}
-                    className="font-vazir glass border-border/50 focus:border-accent"
+                    className="font-azarmehr glass border-border/50 focus:border-accent rounded-[20px]"
                   />
                 </div>
 
@@ -230,7 +230,7 @@ const CustomOrderSection = () => {
                     type="submit"
                     variant="industrial"
                     size="lg"
-                    className="w-full font-vazir"
+                    className="w-full font-azarmehr"
                     disabled={isSubmitted}
                   >
                     {isSubmitted ? (
