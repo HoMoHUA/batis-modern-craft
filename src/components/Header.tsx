@@ -10,7 +10,8 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isFloating, setIsFloating] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showMobileToolbar, setShowMobileToolbar] = useState(true);
+  const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
+  const [showToolbar, setShowToolbar] = useState(true);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const location = useLocation();
@@ -43,15 +44,16 @@ const Header = () => {
       if (currentScrollY > 100) {
         if (scrollDelta < -5) {
           // Scrolling UP - show toolbar
-          setShowMobileToolbar(true);
+          setShowToolbar(true);
         } else if (scrollDelta > 5) {
           // Scrolling DOWN - hide toolbar
-          setShowMobileToolbar(false);
-          setIsMobileMenuOpen(false); // Close menu when hiding
+          setShowToolbar(false);
+          setIsMobileMenuOpen(false);
+          setIsDesktopMenuOpen(false);
         }
       } else {
         // At top of page, always show
-        setShowMobileToolbar(true);
+        setShowToolbar(true);
       }
       
       lastScrollY.current = currentScrollY;
@@ -413,96 +415,175 @@ const Header = () => {
         )}
       </AnimatePresence>
 
-      {/* Desktop Floating Sidebar Header - RIGHT side, vertically centered */}
+      {/* Desktop Floating Hamburger Button - Smart visibility (shows on scroll up only) */}
       <AnimatePresence>
-        {isFloating && (
-          <motion.nav
-            variants={floatingVariants}
+        {isFloating && showToolbar && (
+          <motion.div
+            variants={hamburgerVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed right-4 top-1/2 -translate-y-1/2 z-50 glass-header rounded-[20px] p-3 flex flex-col items-center gap-2 shadow-fluent-16 hidden md:flex"
+            className="fixed right-4 top-1/2 z-50 hidden md:block"
+            style={{
+              transform: 'translateY(-50%)',
+              willChange: 'transform, opacity',
+            }}
           >
-            {/* Logo */}
-            <Link to="/">
-              <motion.div
-                variants={itemVariants}
-                className="w-12 h-12 bg-gradient-to-br from-accent to-cta rounded-[20px] flex items-center justify-center mb-2 shadow-fluent-4 hover:shadow-fluent-8 transition-shadow"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-primary-foreground font-azarmehr-bold text-lg">ص</span>
-              </motion.div>
-            </Link>
-
-            {/* Divider */}
-            <motion.div variants={itemVariants} className="w-8 h-px bg-border my-1" />
-
-            {/* Navigation Icons */}
-            {navItems.map((item) => (
-              <motion.div key={item.name}>
-                {item.href === "/" && location.pathname === "/" ? (
-                  <motion.a
-                    href={item.hash}
-                    variants={itemVariants}
-                    className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
-                    whileHover={{ scale: 1.15, x: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item);
-                    }}
+            {/* Hamburger Button */}
+            <motion.button
+              onClick={() => setIsDesktopMenuOpen(!isDesktopMenuOpen)}
+              className="w-14 h-14 glass-header rounded-[20px] flex items-center justify-center shadow-fluent-8 text-primary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label={isDesktopMenuOpen ? "بستن منو" : "باز کردن منو"}
+            >
+              <AnimatePresence mode="wait">
+                {isDesktopMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, scale: 0 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    exit={{ rotate: 90, scale: 0 }}
+                    transition={{ duration: 0.15 }}
                   >
-                    <item.icon className="w-5 h-5" />
-                    <span className="absolute left-full ml-3 px-4 py-2 bg-primary text-primary-foreground text-sm font-azarmehr rounded-[20px] opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
-                      {item.name}
-                    </span>
-                  </motion.a>
+                    <X className="w-6 h-6" />
+                  </motion.div>
                 ) : (
-                  <Link to={item.href + item.hash}>
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, scale: 0 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    exit={{ rotate: -90, scale: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Menu className="w-6 h-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+
+            {/* Expanded Menu - Radial expansion from hamburger button */}
+            <AnimatePresence>
+              {isDesktopMenuOpen && (
+                <motion.div
+                  variants={mobileMenuVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  className="absolute right-0 top-18 glass-header rounded-[20px] p-3 flex flex-col items-center gap-2 shadow-fluent-16 origin-top-right"
+                  style={{ willChange: 'transform, opacity' }}
+                >
+                  {/* Logo */}
+                  <Link to="/" onClick={() => setIsDesktopMenuOpen(false)}>
                     <motion.div
-                      variants={itemVariants}
-                      className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
-                      whileHover={{ scale: 1.15, x: -5 }}
+                      variants={mobileItemVariants}
+                      className="w-12 h-12 bg-gradient-to-br from-accent to-cta rounded-[20px] flex items-center justify-center shadow-fluent-4 hover:shadow-fluent-8 transition-shadow"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <item.icon className="w-5 h-5" />
-                      <span className="absolute left-full ml-3 px-4 py-2 bg-primary text-primary-foreground text-sm font-azarmehr rounded-[20px] opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
-                        {item.name}
-                      </span>
+                      <span className="text-primary-foreground font-azarmehr-bold text-lg">ص</span>
                     </motion.div>
                   </Link>
-                )}
-              </motion.div>
-            ))}
 
-            {/* Divider */}
-            <motion.div variants={itemVariants} className="w-8 h-px bg-border my-1" />
+                  {/* Divider */}
+                  <motion.div variants={mobileItemVariants} className="w-8 h-px bg-border my-1" />
 
-            {/* Dark Mode Toggle */}
-            {mounted && (
-              <motion.div variants={itemVariants}>
-                <ThemeButton />
-              </motion.div>
-            )}
+                  {/* Navigation Icons */}
+                  {navItems.map((item) => (
+                    <motion.div key={item.name} variants={mobileItemVariants}>
+                      {item.href === "/" && location.pathname === "/" ? (
+                        <motion.a
+                          href={item.hash}
+                          className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
+                          whileHover={{ scale: 1.15, x: -5 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick(item);
+                            setIsDesktopMenuOpen(false);
+                          }}
+                        >
+                          <item.icon className="w-5 h-5" />
+                          <span className="absolute left-full ml-3 px-4 py-2 bg-primary text-primary-foreground text-sm font-azarmehr rounded-[20px] opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
+                            {item.name}
+                          </span>
+                        </motion.a>
+                      ) : (
+                        <Link to={item.href + item.hash} onClick={() => setIsDesktopMenuOpen(false)}>
+                          <motion.div
+                            className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
+                            whileHover={{ scale: 1.15, x: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <item.icon className="w-5 h-5" />
+                            <span className="absolute left-full ml-3 px-4 py-2 bg-primary text-primary-foreground text-sm font-azarmehr rounded-[20px] opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
+                              {item.name}
+                            </span>
+                          </motion.div>
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
 
-            {/* CTA Button */}
-            <motion.a
-              href="tel:+989123456789"
-              variants={itemVariants}
-              className="w-10 h-10 rounded-[20px] flex items-center justify-center bg-cta text-cta-foreground shadow-fluent-4"
-              whileHover={{ scale: 1.2, rotate: -10 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <MessageCircle className="w-5 h-5" />
-            </motion.a>
-          </motion.nav>
+                  {/* Divider */}
+                  <motion.div variants={mobileItemVariants} className="w-8 h-px bg-border my-1" />
+
+                  {/* Dark Mode Toggle */}
+                  {mounted && (
+                    <motion.div variants={mobileItemVariants}>
+                      <motion.button
+                        onClick={() => setTheme(isDark ? "light" : "dark")}
+                        className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300"
+                        whileHover={{ scale: 1.15, x: -5 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <AnimatePresence mode="wait">
+                          {isDark ? (
+                            <motion.div
+                              key="moon"
+                              initial={{ rotate: -90, scale: 0 }}
+                              animate={{ rotate: 0, scale: 1 }}
+                              exit={{ rotate: 90, scale: 0 }}
+                              transition={{ duration: 0.15 }}
+                            >
+                              <Moon className="w-5 h-5" />
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="sun"
+                              initial={{ rotate: 90, scale: 0 }}
+                              animate={{ rotate: 0, scale: 1 }}
+                              exit={{ rotate: -90, scale: 0 }}
+                              transition={{ duration: 0.15 }}
+                            >
+                              <Sun className="w-5 h-5" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.button>
+                    </motion.div>
+                  )}
+
+                  {/* CTA Button */}
+                  <motion.a
+                    href="tel:+989123456789"
+                    variants={mobileItemVariants}
+                    className="w-10 h-10 rounded-[20px] flex items-center justify-center bg-cta text-cta-foreground shadow-fluent-4"
+                    whileHover={{ scale: 1.2, rotate: -10 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                  </motion.a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         )}
       </AnimatePresence>
 
       {/* Mobile Floating Hamburger Button - Smart visibility (shows on scroll up only) */}
       <AnimatePresence>
-        {isFloating && showMobileToolbar && (
+        {isFloating && showToolbar && (
           <motion.div
             variants={hamburgerVariants}
             initial="hidden"
