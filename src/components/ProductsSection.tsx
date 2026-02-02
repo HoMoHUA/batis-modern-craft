@@ -98,14 +98,22 @@ const cardVariants = {
 const ProductCard = ({ product, index }: { product: typeof products[0]; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
+    
+    // For 3D tilt effect
     const x = (e.clientX - rect.left - rect.width / 2) / 20;
     const y = (e.clientY - rect.top - rect.height / 2) / 20;
     setMousePosition({ x, y });
+    
+    // For Windows 10 style cursor light effect (percentage based)
+    const cursorX = ((e.clientX - rect.left) / rect.width) * 100;
+    const cursorY = ((e.clientY - rect.top) / rect.height) * 100;
+    setCursorPosition({ x: cursorX, y: cursorY });
   };
 
   const handleMouseLeave = () => {
@@ -128,8 +136,37 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
         perspective: 1000,
         transformStyle: "preserve-3d"
       }}
-      className="group"
+      className="group relative"
     >
+      {/* Windows 10 Fluent Design - Cursor Light Effect */}
+      <motion.div
+        className="absolute inset-0 z-10 pointer-events-none rounded-[20px] overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+      >
+        {/* Radial gradient light that follows cursor */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `radial-gradient(600px circle at ${cursorPosition.x}% ${cursorPosition.y}%, rgba(255, 255, 255, 0.15), transparent 40%)`,
+            transition: 'background 0.1s ease',
+          }}
+        />
+        {/* Border light effect */}
+        <div
+          className="absolute inset-0 rounded-[20px]"
+          style={{
+            background: `radial-gradient(400px circle at ${cursorPosition.x}% ${cursorPosition.y}%, rgba(255, 255, 255, 0.4), transparent 40%)`,
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'xor',
+            WebkitMaskComposite: 'xor',
+            padding: '1px',
+            transition: 'background 0.1s ease',
+          }}
+        />
+      </motion.div>
+
       <motion.div
         animate={{
           rotateX: -mousePosition.y,
@@ -137,7 +174,7 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
           scale: isHovered ? 1.02 : 1,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="glass-card rounded-[20px] overflow-hidden shadow-fluent-8 hover:shadow-fluent-64 transition-shadow duration-500"
+        className="glass-card rounded-[20px] overflow-hidden shadow-fluent-8 hover:shadow-fluent-64 transition-shadow duration-500 relative"
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Image Container */}
