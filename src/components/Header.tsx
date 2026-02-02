@@ -397,7 +397,7 @@ const Header = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile Floating Button - RIGHT side for RTL */}
+      {/* Mobile Floating Button - RIGHT side for RTL with safe area */}
       <AnimatePresence>
         {isFloating && (
           <motion.button
@@ -406,7 +406,11 @@ const Header = () => {
             exit={{ scale: 0, opacity: 0, y: 50 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="fixed bottom-6 right-6 z-50 md:hidden w-14 h-14 bg-cta text-cta-foreground rounded-[20px] shadow-fluent-16 flex items-center justify-center"
+            className="fixed bottom-4 right-4 z-50 md:hidden w-12 h-12 sm:w-14 sm:h-14 bg-cta text-cta-foreground rounded-2xl sm:rounded-[20px] shadow-fluent-16 flex items-center justify-center"
+            style={{
+              marginBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
+              marginRight: 'max(env(safe-area-inset-right, 0px), 16px)',
+            }}
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.1 }}
           >
@@ -418,7 +422,7 @@ const Header = () => {
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -427,7 +431,7 @@ const Header = () => {
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: -90, opacity: 0 }}
                 >
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -435,7 +439,7 @@ const Header = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile Floating Menu - RIGHT side */}
+      {/* Mobile Floating Menu - RIGHT side with safe area */}
       <AnimatePresence>
         {isFloating && isMenuOpen && (
           <motion.div
@@ -443,9 +447,13 @@ const Header = () => {
             animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
             exit={{ opacity: 0, y: 100, scale: 0.8, x: 50 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="fixed bottom-24 right-6 z-50 md:hidden glass-header rounded-[20px] p-4 shadow-fluent-16"
+            className="fixed bottom-20 right-4 z-50 md:hidden glass-header rounded-2xl sm:rounded-[20px] p-3 sm:p-4 shadow-fluent-16 max-w-[calc(100vw-2rem)]"
+            style={{
+              marginBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
+              marginRight: 'max(env(safe-area-inset-right, 0px), 16px)',
+            }}
           >
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1 sm:gap-2">
               {navItems.map((item, index) => (
                 <motion.div key={item.name}>
                   {item.href === "/" && location.pathname === "/" ? (
@@ -454,22 +462,22 @@ const Header = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-accent hover:bg-accent/10 rounded-[20px] transition-all font-azarmehr"
+                      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-foreground hover:text-accent hover:bg-accent/10 rounded-xl sm:rounded-[20px] transition-all font-azarmehr"
                       onClick={(e) => {
                         e.preventDefault();
                         handleNavClick(item);
                       }}
                     >
-                      <item.icon className="w-5 h-5" />
+                      <item.icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                       {item.name}
                     </motion.a>
                   ) : (
                     <Link
                       to={item.href + item.hash}
-                      className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-accent hover:bg-accent/10 rounded-[20px] transition-all font-azarmehr"
+                      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-foreground hover:text-accent hover:bg-accent/10 rounded-xl sm:rounded-[20px] transition-all font-azarmehr"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <item.icon className="w-5 h-5" />
+                      <item.icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                       {item.name}
                     </Link>
                   )}
@@ -481,10 +489,10 @@ const Header = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.25 }}
-                  className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-accent hover:bg-accent/10 rounded-[20px] transition-all font-azarmehr cursor-pointer"
+                  className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-foreground hover:text-accent hover:bg-accent/10 rounded-xl sm:rounded-[20px] transition-all font-azarmehr cursor-pointer"
                   onClick={() => setTheme(isDark ? "light" : "dark")}
                 >
-                  {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                  {isDark ? <Moon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" /> : <Sun className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />}
                   {isDark ? "حالت روشن" : "حالت تاریک"}
                 </motion.div>
               )}
