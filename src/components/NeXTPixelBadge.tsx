@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const NeXTPixelBadge = () => {
   return (
     <motion.a
-      href="https://nextpixel.ir"
+      href="https://nextpixel.top"
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}
