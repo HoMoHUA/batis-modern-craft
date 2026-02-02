@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import FluentRevealCard from "./FluentRevealCard";
 
 const testimonials = [
   {
@@ -71,59 +72,64 @@ const TestimonialsSection = () => {
                 delay: index * 0.15,
                 ease: [0.1, 0.9, 0.2, 1]
               }}
-              whileHover={{ y: -8 }}
-              className="glass-card p-8 rounded-[20px] relative group hover:shadow-fluent-16 transition-all duration-300"
             >
-              {/* Quote Icon */}
-              <motion.div
-                initial={{ opacity: 0, rotate: -20 }}
-                whileInView={{ opacity: 1, rotate: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                className="absolute top-6 left-6"
-              >
-                <Quote className="w-12 h-12 text-accent/15 group-hover:text-accent/25 transition-colors" />
-              </motion.div>
-
-              {/* Rating */}
-              <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
+              <FluentRevealCard lightColor="rgba(255, 69, 0, 0.1)">
+                <motion.div
+                  whileHover={{ y: -8 }}
+                  className="glass-card p-8 rounded-[20px] relative group hover:shadow-fluent-16 transition-all duration-300"
+                >
+                  {/* Quote Icon */}
                   <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4 + i * 0.05 }}
+                    initial={{ opacity: 0, rotate: -20 }}
+                    whileInView={{ opacity: 1, rotate: 0 }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    className="absolute top-6 left-6"
                   >
-                    <Star className="w-5 h-5 fill-ochre text-ochre" />
+                    <Quote className="w-12 h-12 text-accent/15 group-hover:text-accent/25 transition-colors" />
                   </motion.div>
-                ))}
-              </div>
 
-              {/* Text */}
-              <p className="text-foreground leading-relaxed mb-6 font-azarmehr relative z-10">
-                "{testimonial.text}"
-              </p>
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.4 + i * 0.05 }}
+                      >
+                        <Star className="w-5 h-5 fill-ochre text-ochre" />
+                      </motion.div>
+                    ))}
+                  </div>
 
-              {/* Author */}
-              <div className="flex items-center justify-between pt-4 border-t border-border">
-                <div>
-                  <h4 className="font-azarmehr-bold text-primary">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground font-azarmehr">
-                    {testimonial.location}
+                  {/* Text */}
+                  <p className="text-foreground leading-relaxed mb-6 font-azarmehr relative z-10">
+                    "{testimonial.text}"
                   </p>
-                </div>
-                <span className="text-xs glass text-accent px-4 py-2 rounded-[20px] font-azarmehr">
-                  {testimonial.product}
-                </span>
-              </div>
 
-              {/* Hover accent line */}
-              <motion.div
-                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-cta rounded-b-[20px]"
-                initial={{ scaleX: 0 }}
-                whileHover={{ scaleX: 1 }}
-                transition={{ duration: 0.4, ease: [0.1, 0.9, 0.2, 1] }}
-                style={{ originX: 1 }}
-              />
+                  {/* Author */}
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div>
+                      <h4 className="font-azarmehr-bold text-primary">{testimonial.name}</h4>
+                      <p className="text-sm text-muted-foreground font-azarmehr">
+                        {testimonial.location}
+                      </p>
+                    </div>
+                    <span className="text-xs glass text-accent px-4 py-2 rounded-[20px] font-azarmehr">
+                      {testimonial.product}
+                    </span>
+                  </div>
+
+                  {/* Hover accent line */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-cta rounded-b-[20px]"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.4, ease: [0.1, 0.9, 0.2, 1] }}
+                    style={{ originX: 1 }}
+                  />
+                </motion.div>
+              </FluentRevealCard>
             </motion.div>
           ))}
         </div>

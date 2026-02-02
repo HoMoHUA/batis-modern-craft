@@ -1,5 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import { Shield, Wallet, TreePine } from "lucide-react";
+import FluentRevealCard from "./FluentRevealCard";
 
 const features = [
   {
@@ -76,30 +77,36 @@ const ValueProposition = () => {
             <motion.div
               key={feature.title}
               variants={itemVariants}
-              className="group glass-card p-8 rounded-[20px] hover-lift fluent-reveal cursor-pointer"
             >
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-16 h-16 bg-gradient-to-br from-accent to-wood-light rounded-[20px] flex items-center justify-center mb-6 shadow-fluent-8"
+              <FluentRevealCard 
+                className="h-full"
+                lightColor="rgba(139, 69, 19, 0.15)"
               >
-                <feature.icon className="w-8 h-8 text-accent-foreground" />
-              </motion.div>
-              <h3 className="text-xl font-azarmehr-bold text-primary mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed font-azarmehr">
-                {feature.description}
-              </p>
-              
-              {/* Hover accent line */}
-              <motion.div
-                className="h-1 bg-gradient-to-r from-accent to-cta rounded-full mt-6"
-                initial={{ scaleX: 0 }}
-                whileHover={{ scaleX: 1 }}
-                transition={{ duration: 0.4, ease: [0.1, 0.9, 0.2, 1] }}
-                style={{ originX: 1 }}
-              />
+                <div className="glass-card p-8 rounded-[20px] hover-lift cursor-pointer h-full">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="w-16 h-16 bg-gradient-to-br from-accent to-wood-light rounded-[20px] flex items-center justify-center mb-6 shadow-fluent-8"
+                  >
+                    <feature.icon className="w-8 h-8 text-accent-foreground" />
+                  </motion.div>
+                  <h3 className="text-xl font-azarmehr-bold text-primary mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed font-azarmehr">
+                    {feature.description}
+                  </p>
+                  
+                  {/* Hover accent line */}
+                  <motion.div
+                    className="h-1 bg-gradient-to-r from-accent to-cta rounded-full mt-6"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.4, ease: [0.1, 0.9, 0.2, 1] }}
+                    style={{ originX: 1 }}
+                  />
+                </div>
+              </FluentRevealCard>
             </motion.div>
           ))}
         </motion.div>
