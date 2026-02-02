@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Home, Package, Sparkles, Image, Ruler, MessageCircle } from "lucide-react";
+import { Menu, X, Phone, Home, Package, Sparkles, Image, Ruler, MessageCircle, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isFloating, setIsFloating] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,12 +28,25 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { name: "صفحه اصلی", href: "#hero", icon: Home },
-    { name: "محصولات", href: "#products", icon: Package },
-    { name: "کیفیت", href: "#quality", icon: Sparkles },
-    { name: "گالری", href: "#gallery", icon: Image },
-    { name: "سفارش سفارشی", href: "#custom", icon: Ruler },
+    { name: "صفحه اصلی", href: "/", hash: "#hero", icon: Home },
+    { name: "محصولات", href: "/", hash: "#products", icon: Package },
+    { name: "کیفیت", href: "/", hash: "#quality", icon: Sparkles },
+    { name: "گالری", href: "/", hash: "#gallery", icon: Image },
+    { name: "سفارش سفارشی", href: "/", hash: "#custom", icon: Ruler },
   ];
+
+  const handleNavClick = (item: typeof navItems[0]) => {
+    if (location.pathname === "/") {
+      // On home page, scroll to section
+      const element = document.querySelector(item.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
+  const isDark = mounted && theme === "dark";
 
   // Animation for floating header - from top to right side
   const floatingVariants = {
@@ -69,6 +91,40 @@ const Header = () => {
     }
   };
 
+  const ThemeButton = ({ className = "" }: { className?: string }) => (
+    <motion.button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className={`w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 relative overflow-hidden ${className}`}
+      whileHover={{ scale: 1.15, x: -5 }}
+      whileTap={{ scale: 0.95 }}
+      aria-label={isDark ? "روشن" : "تاریک"}
+    >
+      <AnimatePresence mode="wait">
+        {isDark ? (
+          <motion.div
+            key="moon"
+            initial={{ rotate: -90, scale: 0 }}
+            animate={{ rotate: 0, scale: 1 }}
+            exit={{ rotate: 90, scale: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Moon className="w-5 h-5" />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="sun"
+            initial={{ rotate: 90, scale: 0 }}
+            animate={{ rotate: 0, scale: 1 }}
+            exit={{ rotate: -90, scale: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Sun className="w-5 h-5" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.button>
+  );
+
   return (
     <>
       {/* Normal Header - Hidden when floating */}
@@ -88,38 +144,54 @@ const Header = () => {
             <div className="container mx-auto px-4">
               <div className="flex items-center justify-between h-16 md:h-20">
                 {/* Logo */}
-                <motion.a
-                  href="#"
-                  className="flex items-center gap-3 group"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary to-steel rounded-[20px] flex items-center justify-center shadow-fluent-4 group-hover:shadow-fluent-8 transition-shadow duration-300">
-                    <span className="text-primary-foreground font-azarmehr-bold text-lg">ب</span>
-                  </div>
-                  <span className="font-azarmehr-bold text-xl text-primary">
-                    باتیس مدرن
-                  </span>
-                </motion.a>
+                <Link to="/">
+                  <motion.div
+                    className="flex items-center gap-3 group"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-steel rounded-[20px] flex items-center justify-center shadow-fluent-4 group-hover:shadow-fluent-8 transition-shadow duration-300">
+                      <span className="text-primary-foreground font-azarmehr-bold text-lg">ب</span>
+                    </div>
+                    <span className="font-azarmehr-bold text-xl text-primary">
+                      باتیس مدرن
+                    </span>
+                  </motion.div>
+                </Link>
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-8">
                   {navItems.map((item, index) => (
-                    <motion.a
-                      key={item.name}
-                      href={item.href}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.4 }}
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300 font-azarmehr font-medium link-underline py-1"
-                    >
-                      {item.name}
-                    </motion.a>
+                    <motion.div key={item.name}>
+                      {item.href === "/" && location.pathname === "/" ? (
+                        <motion.a
+                          href={item.hash}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1, duration: 0.4 }}
+                          className="text-muted-foreground hover:text-primary transition-colors duration-300 font-azarmehr font-medium link-underline py-1"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick(item);
+                          }}
+                        >
+                          {item.name}
+                        </motion.a>
+                      ) : (
+                        <Link
+                          to={item.href + item.hash}
+                          className="text-muted-foreground hover:text-primary transition-colors duration-300 font-azarmehr font-medium link-underline py-1"
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </motion.div>
                   ))}
                 </nav>
 
-                {/* CTA Button */}
-                <div className="hidden md:flex items-center gap-4">
+                {/* CTA Buttons */}
+                <div className="hidden md:flex items-center gap-3">
+                  {mounted && <ThemeButton />}
                   <motion.a
                     href="tel:+989123456789"
                     className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors px-4 py-2 rounded-[20px] hover:bg-accent/10"
@@ -140,35 +212,38 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <motion.button
-                  className="md:hidden p-2 text-primary glass rounded-[20px]"
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <AnimatePresence mode="wait">
-                    {isMenuOpen ? (
-                      <motion.div
-                        key="close"
-                        initial={{ rotate: -90, opacity: 0 }}
-                        animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: 90, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <X className="w-6 h-6" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="menu"
-                        initial={{ rotate: 90, opacity: 0 }}
-                        animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: -90, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Menu className="w-6 h-6" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.button>
+                <div className="md:hidden flex items-center gap-2">
+                  {mounted && <ThemeButton />}
+                  <motion.button
+                    className="p-2 text-primary glass rounded-[20px]"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <AnimatePresence mode="wait">
+                      {isMenuOpen ? (
+                        <motion.div
+                          key="close"
+                          initial={{ rotate: -90, opacity: 0 }}
+                          animate={{ rotate: 0, opacity: 1 }}
+                          exit={{ rotate: 90, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <X className="w-6 h-6" />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="menu"
+                          initial={{ rotate: 90, opacity: 0 }}
+                          animate={{ rotate: 0, opacity: 1 }}
+                          exit={{ rotate: -90, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Menu className="w-6 h-6" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.button>
+                </div>
               </div>
             </div>
 
@@ -184,19 +259,34 @@ const Header = () => {
                 >
                   <nav className="p-6 flex flex-col gap-2">
                     {navItems.map((item, index) => (
-                      <motion.a
-                        key={item.name}
-                        href={item.href}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ delay: index * 0.05, duration: 0.3 }}
-                        className="text-foreground hover:text-accent hover:bg-accent/10 transition-all py-3 px-4 font-azarmehr font-medium rounded-[20px] flex items-center gap-3"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        <item.icon className="w-5 h-5" />
-                        {item.name}
-                      </motion.a>
+                      <motion.div key={item.name}>
+                        {item.href === "/" && location.pathname === "/" ? (
+                          <motion.a
+                            href={item.hash}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ delay: index * 0.05, duration: 0.3 }}
+                            className="text-foreground hover:text-accent hover:bg-accent/10 transition-all py-3 px-4 font-azarmehr font-medium rounded-[20px] flex items-center gap-3"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleNavClick(item);
+                            }}
+                          >
+                            <item.icon className="w-5 h-5" />
+                            {item.name}
+                          </motion.a>
+                        ) : (
+                          <Link
+                            to={item.href + item.hash}
+                            className="text-foreground hover:text-accent hover:bg-accent/10 transition-all py-3 px-4 font-azarmehr font-medium rounded-[20px] flex items-center gap-3"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <item.icon className="w-5 h-5" />
+                            {item.name}
+                          </Link>
+                        )}
+                      </motion.div>
                     ))}
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
@@ -231,40 +321,67 @@ const Header = () => {
             className="fixed right-4 top-1/2 -translate-y-1/2 z-50 glass-header rounded-[20px] p-3 flex flex-col items-center gap-2 shadow-fluent-16 hidden md:flex"
           >
             {/* Logo */}
-            <motion.a
-              href="#hero"
-              variants={itemVariants}
-              className="w-12 h-12 bg-gradient-to-br from-primary to-steel rounded-[20px] flex items-center justify-center mb-2 shadow-fluent-4 hover:shadow-fluent-8 transition-shadow"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="text-primary-foreground font-azarmehr-bold text-lg">ب</span>
-            </motion.a>
+            <Link to="/">
+              <motion.div
+                variants={itemVariants}
+                className="w-12 h-12 bg-gradient-to-br from-primary to-steel rounded-[20px] flex items-center justify-center mb-2 shadow-fluent-4 hover:shadow-fluent-8 transition-shadow"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-primary-foreground font-azarmehr-bold text-lg">ب</span>
+              </motion.div>
+            </Link>
 
             {/* Divider */}
             <motion.div variants={itemVariants} className="w-8 h-px bg-border my-1" />
 
             {/* Navigation Icons */}
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                variants={itemVariants}
-                className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
-                whileHover={{ scale: 1.15, x: -5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <item.icon className="w-5 h-5" />
-                
-                {/* Tooltip - appears on LEFT for RTL */}
-                <span className="absolute left-full ml-3 px-4 py-2 bg-primary text-primary-foreground text-sm font-azarmehr rounded-[20px] opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
-                  {item.name}
-                </span>
-              </motion.a>
+            {navItems.map((item) => (
+              <motion.div key={item.name}>
+                {item.href === "/" && location.pathname === "/" ? (
+                  <motion.a
+                    href={item.hash}
+                    variants={itemVariants}
+                    className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
+                    whileHover={{ scale: 1.15, x: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item);
+                    }}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    <span className="absolute left-full ml-3 px-4 py-2 bg-primary text-primary-foreground text-sm font-azarmehr rounded-[20px] opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
+                      {item.name}
+                    </span>
+                  </motion.a>
+                ) : (
+                  <Link to={item.href + item.hash}>
+                    <motion.div
+                      variants={itemVariants}
+                      className="w-10 h-10 rounded-[20px] flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
+                      whileHover={{ scale: 1.15, x: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <item.icon className="w-5 h-5" />
+                      <span className="absolute left-full ml-3 px-4 py-2 bg-primary text-primary-foreground text-sm font-azarmehr rounded-[20px] opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
+                        {item.name}
+                      </span>
+                    </motion.div>
+                  </Link>
+                )}
+              </motion.div>
             ))}
 
             {/* Divider */}
             <motion.div variants={itemVariants} className="w-8 h-px bg-border my-1" />
+
+            {/* Dark Mode Toggle */}
+            {mounted && (
+              <motion.div variants={itemVariants}>
+                <ThemeButton />
+              </motion.div>
+            )}
 
             {/* CTA Button */}
             <motion.a
@@ -330,19 +447,47 @@ const Header = () => {
           >
             <nav className="flex flex-col gap-2">
               {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
+                <motion.div key={item.name}>
+                  {item.href === "/" && location.pathname === "/" ? (
+                    <motion.a
+                      href={item.hash}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-accent hover:bg-accent/10 rounded-[20px] transition-all font-azarmehr"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item);
+                      }}
+                    >
+                      <item.icon className="w-5 h-5" />
+                      {item.name}
+                    </motion.a>
+                  ) : (
+                    <Link
+                      to={item.href + item.hash}
+                      className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-accent hover:bg-accent/10 rounded-[20px] transition-all font-azarmehr"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <item.icon className="w-5 h-5" />
+                      {item.name}
+                    </Link>
+                  )}
+                </motion.div>
+              ))}
+              {/* Mobile Theme Toggle in Floating Menu */}
+              {mounted && (
+                <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-accent hover:bg-accent/10 rounded-[20px] transition-all font-azarmehr"
-                  onClick={() => setIsMenuOpen(false)}
+                  transition={{ delay: 0.25 }}
+                  className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-accent hover:bg-accent/10 rounded-[20px] transition-all font-azarmehr cursor-pointer"
+                  onClick={() => setTheme(isDark ? "light" : "dark")}
                 >
-                  <item.icon className="w-5 h-5" />
-                  {item.name}
-                </motion.a>
-              ))}
+                  {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                  {isDark ? "حالت روشن" : "حالت تاریک"}
+                </motion.div>
+              )}
             </nav>
           </motion.div>
         )}

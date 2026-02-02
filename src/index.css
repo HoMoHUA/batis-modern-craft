@@ -4,25 +4,22 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-/* AzarMehr Font - با CDN جایگزین */
+/* AzarMehr Font - Local Files */
 @font-face {
   font-family: 'AzarMehr';
-  src: url('https://cdn.jsdelivr.net/gh/AzarMehr/AzarMehr-Font@main/fonts/woff2/AzarMehr-Regular.woff2') format('woff2'),
-       url('https://noormahbookcity.ir/wp-content/uploads/fonts/400-AzarMehr-Regular.woff2') format('woff2');
+  src: url('/fonts/AzarMehr-Regular.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: 'AzarMehr';
-  src: url('https://cdn.jsdelivr.net/gh/AzarMehr/AzarMehr-Font@main/fonts/woff2/AzarMehr-Medium.woff2') format('woff2'),
-       url('https://noormahbookcity.ir/wp-content/uploads/fonts/500-AzarMehr-Medium.woff2') format('woff2');
+  src: url('/fonts/AzarMehr-Regular.woff2') format('woff2');
   font-weight: 500;
   font-display: swap;
 }
 @font-face {
   font-family: 'AzarMehr';
-  src: url('https://cdn.jsdelivr.net/gh/AzarMehr/AzarMehr-Font@main/fonts/woff2/AzarMehr-Bold.woff2') format('woff2'),
-       url('https://noormahbookcity.ir/wp-content/uploads/fonts/700-AzarMehr-Bold.woff2') format('woff2');
+  src: url('/fonts/AzarMehr-Bold.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
 }
