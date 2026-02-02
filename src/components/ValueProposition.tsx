@@ -56,10 +56,10 @@ const ValueProposition = () => {
           transition={{ duration: 0.6, ease: [0.1, 0.9, 0.2, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-azarmehr-bold text-primary mb-4">
             چرا <span className="text-accent">باتیس مدرن؟</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto font-vazir">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-azarmehr">
             ما با ترکیب هنر سنتی صنعتگری و تکنولوژی مدرن، محصولاتی می‌سازیم که
             سال‌ها کنار شما می‌مانند.
           </p>
@@ -76,19 +76,19 @@ const ValueProposition = () => {
             <motion.div
               key={feature.title}
               variants={itemVariants}
-              className="group glass-card p-8 rounded-2xl hover-lift fluent-reveal cursor-pointer"
+              className="group glass-card p-8 rounded-[20px] hover-lift fluent-reveal cursor-pointer"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="w-16 h-16 bg-gradient-to-br from-accent to-wood-light rounded-xl flex items-center justify-center mb-6 shadow-fluent-8"
+                className="w-16 h-16 bg-gradient-to-br from-accent to-wood-light rounded-[20px] flex items-center justify-center mb-6 shadow-fluent-8"
               >
                 <feature.icon className="w-8 h-8 text-accent-foreground" />
               </motion.div>
-              <h3 className="text-xl font-vazir-bold text-primary mb-3">
+              <h3 className="text-xl font-azarmehr-bold text-primary mb-3">
                 {feature.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed font-vazir">
+              <p className="text-muted-foreground leading-relaxed font-azarmehr">
                 {feature.description}
               </p>
               

@@ -30,14 +30,14 @@ const GallerySection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block px-5 py-2 glass-card text-accent rounded-full text-sm font-vazir font-medium mb-4"
+            className="inline-block px-5 py-2 glass-card text-accent rounded-[20px] text-sm font-azarmehr font-medium mb-4"
           >
             گالری تعاملی
           </motion.span>
-          <h2 className="text-3xl md:text-4xl font-vazir-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-azarmehr-bold text-primary mb-4">
             محصولات در <span className="text-accent">فضای واقعی</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto font-vazir">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-azarmehr">
             روی نقاط مشخص شده کلیک کنید تا اطلاعات محصول را ببینید
           </p>
         </motion.div>
@@ -48,7 +48,7 @@ const GallerySection = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.1, 0.9, 0.2, 1] }}
-          className="relative rounded-3xl overflow-hidden shadow-fluent-64"
+          className="relative rounded-[20px] overflow-hidden shadow-fluent-64"
         >
           <img
             src={galleryRoom}
@@ -87,14 +87,14 @@ const GallerySection = () => {
                   repeat: Infinity,
                   ease: [0.1, 0.9, 0.2, 1]
                 }}
-                className="absolute inset-0 w-12 h-12 -translate-x-1/2 -translate-y-1/2 bg-cta/40 rounded-full"
+                className="absolute inset-0 w-12 h-12 -translate-x-1/2 -translate-y-1/2 bg-cta/40 rounded-[20px]"
               />
               
               {/* Hotspot Button */}
               <motion.div
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                className="relative w-12 h-12 -translate-x-1/2 -translate-y-1/2 bg-cta rounded-full flex items-center justify-center text-cta-foreground shadow-fluent-16"
+                className="relative w-12 h-12 -translate-x-1/2 -translate-y-1/2 bg-cta rounded-[20px] flex items-center justify-center text-cta-foreground shadow-fluent-16"
               >
                 <AnimatePresence mode="wait">
                   {activeHotspot === spot.id ? (
@@ -127,14 +127,14 @@ const GallerySection = () => {
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: 20 }}
                     transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                    className="absolute right-full mr-4 top-1/2 -translate-y-1/2 glass-card rounded-2xl p-5 shadow-fluent-16 min-w-[200px] z-20"
+                    className="absolute right-full mr-4 top-1/2 -translate-y-1/2 glass-card rounded-[20px] p-5 shadow-fluent-16 min-w-[200px] z-20"
                   >
-                    <h4 className="font-vazir-bold text-primary mb-2">{spot.name}</h4>
+                    <h4 className="font-azarmehr-bold text-primary mb-2">{spot.name}</h4>
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-xl font-vazir-bold text-cta">{spot.price}</span>
-                      <span className="text-xs text-muted-foreground font-vazir">تومان</span>
+                      <span className="text-xl font-azarmehr-bold text-cta">{spot.price}</span>
+                      <span className="text-xs text-muted-foreground font-azarmehr">تومان</span>
                     </div>
-                    <Button variant="cta" size="sm" className="w-full font-vazir">
+                    <Button variant="cta" size="sm" className="w-full font-azarmehr">
                       <ShoppingCart className="w-4 h-4" />
                       افزودن به سبد
                     </Button>

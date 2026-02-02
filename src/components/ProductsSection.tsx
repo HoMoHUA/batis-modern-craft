@@ -106,7 +106,7 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
           scale: isHovered ? 1.02 : 1,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="glass-card rounded-2xl overflow-hidden shadow-fluent-8 hover:shadow-fluent-64 transition-shadow duration-500"
+        className="glass-card rounded-[20px] overflow-hidden shadow-fluent-8 hover:shadow-fluent-64 transition-shadow duration-500"
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Image Container */}
@@ -131,7 +131,7 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
                 transform: isHovered ? "translateZ(30px)" : "translateZ(0)",
                 transition: "transform 0.3s"
               }}
-              className={`absolute top-4 right-4 px-5 py-2 text-xs font-azarmehr-medium rounded-full shadow-fluent-8 ${
+              className={`absolute top-4 right-4 px-5 py-2 text-xs font-azarmehr-medium rounded-[20px] shadow-fluent-8 ${
                 product.badge === "پرفروش" 
                   ? "bg-cta text-cta-foreground" 
                   : "bg-accent text-accent-foreground"
@@ -284,7 +284,7 @@ const ProductsSection = () => {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, type: "spring" }}
-            className="inline-block px-6 py-2.5 glass-card text-primary rounded-full text-sm font-azarmehr-medium mb-6"
+            className="inline-block px-6 py-2.5 glass-card text-primary rounded-[20px] text-sm font-azarmehr-medium mb-6"
           >
             کاتالوگ محصولات
           </motion.span>
@@ -310,7 +310,7 @@ const ProductsSection = () => {
               onClick={() => setActiveCategory(index)}
               whileHover={{ scale: 1.08, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-7 py-3 rounded-full text-sm font-azarmehr-medium transition-all duration-300 ${
+              className={`px-7 py-3 rounded-[20px] text-sm font-azarmehr-medium transition-all duration-300 ${
                 activeCategory === index
                   ? "bg-primary text-primary-foreground shadow-fluent-16"
                   : "glass hover:bg-primary/10 text-foreground"
