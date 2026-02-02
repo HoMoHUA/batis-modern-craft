@@ -533,4 +533,55 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
+
+  /* 3D Transform utilities */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .perspective-1200 {
+    perspective: 1200px;
+  }
+
+  /* Magnetic button effect */
+  .magnetic-button {
+    transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  /* Scroll-driven animations */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px) rotateX(10deg);
+    transition: all 0.8s cubic-bezier(0.1, 0.9, 0.2, 1);
+  }
+
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+
+  /* Cinematic text */
+  .cinematic-text {
+    text-shadow: 0 4px 30px hsl(0 0% 0% / 0.3);
+  }
+
+  /* Page transition */
+  .page-enter {
+    animation: pageEnter 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  }
+
+  @keyframes pageEnter {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
