@@ -150,11 +150,11 @@ const Header = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-steel rounded-[20px] flex items-center justify-center shadow-fluent-4 group-hover:shadow-fluent-8 transition-shadow duration-300">
-                      <span className="text-primary-foreground font-azarmehr-bold text-lg">ب</span>
+                    <div className="w-10 h-10 bg-gradient-to-br from-accent to-cta rounded-[20px] flex items-center justify-center shadow-fluent-4 group-hover:shadow-fluent-8 transition-shadow duration-300">
+                      <span className="text-primary-foreground font-azarmehr-bold text-lg">ص</span>
                     </div>
                     <span className="font-azarmehr-bold text-xl text-primary">
-                      باتیس مدرن
+                      صنایع مدرن
                     </span>
                   </motion.div>
                 </Link>
@@ -324,11 +324,11 @@ const Header = () => {
             <Link to="/">
               <motion.div
                 variants={itemVariants}
-                className="w-12 h-12 bg-gradient-to-br from-primary to-steel rounded-[20px] flex items-center justify-center mb-2 shadow-fluent-4 hover:shadow-fluent-8 transition-shadow"
+                className="w-12 h-12 bg-gradient-to-br from-accent to-cta rounded-[20px] flex items-center justify-center mb-2 shadow-fluent-4 hover:shadow-fluent-8 transition-shadow"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-primary-foreground font-azarmehr-bold text-lg">ب</span>
+                <span className="text-primary-foreground font-azarmehr-bold text-lg">ص</span>
               </motion.div>
             </Link>
 

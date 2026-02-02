@@ -56,7 +56,7 @@ const TestimonialsSection = () => {
             مشتریان <span className="text-accent">راضی</span> ما
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto font-azarmehr">
-            تجربه مشتریانی که از محصولات باتیس مدرن استفاده کرده‌اند
+            تجربه مشتریانی که از محصولات صنایع مدرن استفاده کرده‌اند
           </p>
         </motion.div>
 

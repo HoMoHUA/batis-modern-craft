@@ -24,12 +24,12 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-6">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className="w-12 h-12 bg-gradient-to-br from-accent to-wood-light rounded-[20px] flex items-center justify-center shadow-fluent-8"
+                className="w-12 h-12 bg-gradient-to-br from-accent to-cta rounded-[20px] flex items-center justify-center shadow-fluent-8"
               >
-                <span className="text-accent-foreground font-azarmehr-bold text-xl">ب</span>
+                <span className="text-accent-foreground font-azarmehr-bold text-xl">ص</span>
               </motion.div>
               <span className="font-azarmehr-bold text-2xl">
-                باتیس مدرن
+                صنایع مدرن
               </span>
             </div>
             <p className="text-primary-foreground/70 leading-relaxed mb-6 font-azarmehr">
@@ -169,7 +169,7 @@ const Footer = () => {
             className="flex flex-col md:flex-row justify-between items-center gap-4"
           >
             <p className="text-primary-foreground/60 text-sm font-azarmehr">
-              © {currentYear} باتیس مدرن. تمامی حقوق محفوظ است.
+              © {currentYear} صنایع مدرن. تمامی حقوق محفوظ است.
             </p>
             <p className="text-primary-foreground/60 text-sm font-azarmehr">
               طراحی و توسعه توسط{" "}

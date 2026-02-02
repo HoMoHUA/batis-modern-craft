@@ -52,7 +52,7 @@ const GallerySection = () => {
         >
           <img
             src={galleryRoom}
-            alt="فضای داخلی با مبلمان باتیس مدرن"
+            alt="فضای داخلی با مبلمان صنایع مدرن"
             className="w-full h-[500px] md:h-[600px] object-cover"
           />
           

@@ -58,7 +58,7 @@ const ValueProposition = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-azarmehr-bold text-primary mb-4">
-            چرا <span className="text-accent">باتیس مدرن؟</span>
+            چرا <span className="text-accent">صنایع مدرن؟</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto font-azarmehr">
             ما با ترکیب هنر سنتی صنعتگری و تکنولوژی مدرن، محصولاتی می‌سازیم که
