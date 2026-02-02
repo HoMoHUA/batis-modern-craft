@@ -397,107 +397,143 @@ const Header = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile Floating Button - RIGHT side for RTL with safe area */}
+      {/* Mobile Floating Toolbar - RIGHT side, vertically centered with animation from top */}
       <AnimatePresence>
         {isFloating && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0, y: 50 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0, opacity: 0, y: 50 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="fixed bottom-4 right-4 z-50 md:hidden w-12 h-12 sm:w-14 sm:h-14 bg-cta text-cta-foreground rounded-2xl sm:rounded-[20px] shadow-fluent-16 flex items-center justify-center"
-            style={{
-              marginBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-              marginRight: 'max(env(safe-area-inset-right, 0px), 16px)',
+          <motion.nav
+            initial={{ y: -200, x: 100, opacity: 0, scale: 0.5 }}
+            animate={{ y: 0, x: 0, opacity: 1, scale: 1 }}
+            exit={{ y: -100, x: 50, opacity: 0, scale: 0.8 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 100, 
+              damping: 15,
+              staggerChildren: 0.05,
+              delayChildren: 0.1
             }}
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 1.1 }}
+            className="fixed right-3 top-1/2 -translate-y-1/2 z-50 md:hidden glass-header rounded-2xl p-2 flex flex-col items-center gap-1.5 shadow-fluent-16"
+            style={{
+              marginRight: 'env(safe-area-inset-right, 0px)',
+            }}
           >
-            <AnimatePresence mode="wait">
-              {isMenuOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                >
-                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                >
-                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
-        )}
-      </AnimatePresence>
+            {/* Logo */}
+            <Link to="/" onClick={() => setIsMenuOpen(false)}>
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.1, type: "spring" }}
+                className="w-10 h-10 bg-gradient-to-br from-accent to-cta rounded-xl flex items-center justify-center shadow-fluent-4"
+                whileTap={{ scale: 0.9 }}
+              >
+                <span className="text-primary-foreground font-azarmehr-bold text-sm">ص</span>
+              </motion.div>
+            </Link>
 
-      {/* Mobile Floating Menu - RIGHT side with safe area */}
-      <AnimatePresence>
-        {isFloating && isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.8, x: 50 }}
-            animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
-            exit={{ opacity: 0, y: 100, scale: 0.8, x: 50 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="fixed bottom-20 right-4 z-50 md:hidden glass-header rounded-2xl sm:rounded-[20px] p-3 sm:p-4 shadow-fluent-16 max-w-[calc(100vw-2rem)]"
-            style={{
-              marginBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-              marginRight: 'max(env(safe-area-inset-right, 0px), 16px)',
-            }}
-          >
-            <nav className="flex flex-col gap-1 sm:gap-2">
-              {navItems.map((item, index) => (
-                <motion.div key={item.name}>
-                  {item.href === "/" && location.pathname === "/" ? (
-                    <motion.a
-                      href={item.hash}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-foreground hover:text-accent hover:bg-accent/10 rounded-xl sm:rounded-[20px] transition-all font-azarmehr"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick(item);
-                      }}
-                    >
-                      <item.icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            {/* Divider */}
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.15 }}
+              className="w-6 h-px bg-border my-0.5" 
+            />
+
+            {/* Navigation Icons */}
+            {navItems.map((item, index) => (
+              <motion.div key={item.name}>
+                {item.href === "/" && location.pathname === "/" ? (
+                  <motion.a
+                    href={item.hash}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.1 + index * 0.05, type: "spring" }}
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item);
+                    }}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {/* Tooltip */}
+                    <span className="absolute left-full ml-2 px-3 py-1.5 bg-primary text-primary-foreground text-xs font-azarmehr rounded-lg opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
                       {item.name}
-                    </motion.a>
+                    </span>
+                  </motion.a>
+                ) : (
+                  <Link to={item.href + item.hash} onClick={() => setIsMenuOpen(false)}>
+                    <motion.div
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.1 + index * 0.05, type: "spring" }}
+                      className="w-9 h-9 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300 group relative"
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <item.icon className="w-4 h-4" />
+                      <span className="absolute left-full ml-2 px-3 py-1.5 bg-primary text-primary-foreground text-xs font-azarmehr rounded-lg opacity-0 pointer-events-none whitespace-nowrap shadow-fluent-8 group-hover:opacity-100 transition-opacity duration-200">
+                        {item.name}
+                      </span>
+                    </motion.div>
+                  </Link>
+                )}
+              </motion.div>
+            ))}
+
+            {/* Divider */}
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.35 }}
+              className="w-6 h-px bg-border my-0.5" 
+            />
+
+            {/* Dark Mode Toggle */}
+            {mounted && (
+              <motion.button
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.4, type: "spring" }}
+                onClick={() => setTheme(isDark ? "light" : "dark")}
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-300"
+                whileTap={{ scale: 0.9 }}
+              >
+                <AnimatePresence mode="wait">
+                  {isDark ? (
+                    <motion.div
+                      key="moon"
+                      initial={{ rotate: -90, scale: 0 }}
+                      animate={{ rotate: 0, scale: 1 }}
+                      exit={{ rotate: 90, scale: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Moon className="w-4 h-4" />
+                    </motion.div>
                   ) : (
-                    <Link
-                      to={item.href + item.hash}
-                      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-foreground hover:text-accent hover:bg-accent/10 rounded-xl sm:rounded-[20px] transition-all font-azarmehr"
-                      onClick={() => setIsMenuOpen(false)}
+                    <motion.div
+                      key="sun"
+                      initial={{ rotate: 90, scale: 0 }}
+                      animate={{ rotate: 0, scale: 1 }}
+                      exit={{ rotate: -90, scale: 0 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <item.icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                      {item.name}
-                    </Link>
+                      <Sun className="w-4 h-4" />
+                    </motion.div>
                   )}
-                </motion.div>
-              ))}
-              {/* Mobile Theme Toggle in Floating Menu */}
-              {mounted && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.25 }}
-                  className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-foreground hover:text-accent hover:bg-accent/10 rounded-xl sm:rounded-[20px] transition-all font-azarmehr cursor-pointer"
-                  onClick={() => setTheme(isDark ? "light" : "dark")}
-                >
-                  {isDark ? <Moon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" /> : <Sun className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />}
-                  {isDark ? "حالت روشن" : "حالت تاریک"}
-                </motion.div>
-              )}
-            </nav>
-          </motion.div>
+                </AnimatePresence>
+              </motion.button>
+            )}
+
+            {/* CTA Button */}
+            <motion.a
+              href="tel:+989123456789"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.45, type: "spring" }}
+              className="w-9 h-9 rounded-xl flex items-center justify-center bg-cta text-cta-foreground shadow-fluent-4"
+              whileTap={{ scale: 0.9 }}
+            >
+              <MessageCircle className="w-4 h-4" />
+            </motion.a>
+          </motion.nav>
         )}
       </AnimatePresence>
     </>
