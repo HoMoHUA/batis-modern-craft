@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import AIChatBot from "@/components/AIChatBot";
 
 import productChair from "@/assets/product-chair.jpg";
 import productDesk from "@/assets/product-desk.jpg";
@@ -608,6 +609,7 @@ const ProductPage = () => {
       </section>
 
       <Footer />
+      <AIChatBot />
     </div>
   );
 };

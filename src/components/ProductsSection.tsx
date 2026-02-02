@@ -9,7 +9,7 @@ import productChair from "@/assets/product-chair.jpg";
 
 const products = [
   {
-    id: 1,
+    id: "1",
     name: "میز مدیریت اگزکیوتیو",
     category: "مبلمان اداری",
     price: "۱۲,۵۰۰,۰۰۰",
@@ -18,25 +18,25 @@ const products = [
     description: "میز مدیریت با پروفیل فولادی ۲mm و چوب نراد خشک‌شده",
   },
   {
-    id: 2,
-    name: "کتابخانه صنعتی ۷ طبقه",
-    category: "شلف و کتابخانه",
+    id: "2",
+    name: "صندلی مدیریت ارگونومیک",
+    category: "صندلی",
     price: "۸,۹۰۰,۰۰۰",
-    image: productShelf,
-    badge: null,
-    description: "کتابخانه مدرن با طبقات قابل تنظیم و اسکلت فولادی",
-  },
-  {
-    id: 3,
-    name: "صندلی مدیریتی ارگونومیک",
-    category: "صندلی اداری",
-    price: "۶,۵۰۰,۰۰۰",
     image: productChair,
-    badge: "جدید",
+    badge: null,
     description: "صندلی ارگونومیک با پشتی قابل تنظیم و نشیمنگاه راحت",
   },
   {
-    id: 4,
+    id: "3",
+    name: "کتابخانه صنعتی مدرن",
+    category: "شلف و کتابخانه",
+    price: "۱۵,۸۰۰,۰۰۰",
+    image: productShelf,
+    badge: "جدید",
+    description: "کتابخانه صنعتی با ۵ طبقه قابل تنظیم، مناسب برای دفاتر و منازل مدرن",
+  },
+  {
+    id: "4",
     name: "میز کنفرانس ۸ نفره",
     category: "مبلمان اداری",
     price: "۲۴,۰۰۰,۰۰۰",
@@ -45,7 +45,7 @@ const products = [
     description: "میز کنفرانس بزرگ برای جلسات حرفه‌ای",
   },
   {
-    id: 5,
+    id: "5",
     name: "شلف دیواری مدولار",
     category: "شلف و کتابخانه",
     price: "۴,۲۰۰,۰۰۰",
@@ -54,7 +54,7 @@ const products = [
     description: "شلف مدولار با امکان ترکیب‌بندی دلخواه",
   },
   {
-    id: 6,
+    id: "6",
     name: "میز تحریر استودیویی",
     category: "میز تحریر",
     price: "۷,۸۰۰,۰۰۰",
