@@ -63,7 +63,10 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
             filter: "blur(10px)"
           }}
           transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background overflow-hidden"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden"
+          style={{
+            background: "linear-gradient(135deg, hsl(265 85% 12%) 0%, hsl(280 70% 18%) 50%, hsl(300 60% 15%) 100%)",
+          }}
         >
           {/* Animated Mesh Gradient Background */}
           <div className="absolute inset-0">
@@ -423,6 +426,37 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
             ))}
           </div>
 
+          {/* NeXTPixel Badge */}
+          <motion.a
+            href="https://nextpixel.ir"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 z-10 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl flex items-center gap-2 sm:gap-3 group cursor-pointer border border-white/10 hover:border-white/20 transition-colors backdrop-blur-sm"
+            style={{
+              background: "rgba(255, 255, 255, 0.05)",
+              marginBottom: 'env(safe-area-inset-bottom, 0px)',
+              marginLeft: 'env(safe-area-inset-left, 0px)',
+            }}
+          >
+            {/* Logo */}
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-gradient-to-br from-accent to-cta flex items-center justify-center flex-shrink-0">
+              <span className="text-white font-azarmehr-bold text-xs sm:text-sm">N</span>
+            </div>
+            
+            {/* Text */}
+            <div className="flex flex-col">
+              <span className="text-[8px] sm:text-[10px] text-white/50 font-azarmehr leading-none">Made By</span>
+              <span className="text-xs sm:text-sm font-azarmehr-bold text-white/90 leading-tight group-hover:text-white transition-colors">
+                NeXTPixel
+              </span>
+            </div>
+          </motion.a>
+
           {/* Corner Decorations */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
@@ -434,7 +468,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
               <motion.path
                 d="M 0 50 Q 25 25, 50 0"
                 fill="none"
-                stroke="hsl(var(--accent) / 0.3)"
+                stroke="rgba(255,255,255,0.2)"
                 strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
@@ -443,7 +477,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
               <motion.path
                 d="M 0 80 Q 40 40, 80 0"
                 fill="none"
-                stroke="hsl(var(--cta) / 0.2)"
+                stroke="rgba(255,255,255,0.1)"
                 strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
@@ -456,13 +490,13 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 0.5, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 w-16 h-16 sm:w-24 sm:h-24 rotate-180"
+            className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 w-16 h-16 sm:w-24 sm:h-24 rotate-180"
           >
             <svg viewBox="0 0 100 100" className="w-full h-full">
               <motion.path
                 d="M 0 50 Q 25 25, 50 0"
                 fill="none"
-                stroke="hsl(var(--accent) / 0.3)"
+                stroke="rgba(255,255,255,0.2)"
                 strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
@@ -471,7 +505,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
               <motion.path
                 d="M 0 80 Q 40 40, 80 0"
                 fill="none"
-                stroke="hsl(var(--cta) / 0.2)"
+                stroke="rgba(255,255,255,0.1)"
                 strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
