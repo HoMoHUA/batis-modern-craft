@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { 
   ArrowRight, 
   ShoppingCart, 
@@ -123,6 +123,98 @@ const products = [
     reviews: 156,
     inStock: true,
     category: "کتابخانه"
+  },
+  {
+    id: "4",
+    name: "میز کنفرانس ۸ نفره",
+    subtitle: "جلسات حرفه‌ای",
+    price: "۲۴,۰۰۰,۰۰۰",
+    originalPrice: "۲۷,۰۰۰,۰۰۰",
+    discount: 11,
+    images: [productDesk, productShelf, productChair],
+    description: "میز کنفرانس بزرگ برای جلسات حرفه‌ای با ظرفیت ۸ نفر، ساخته شده از چوب نراد و فولاد.",
+    longDescription: `میز کنفرانس ۸ نفره صنایع مدرن، انتخابی ایده‌آل برای اتاق‌های جلسات و فضاهای کاری تیمی است.
+
+این میز با ابعاد بزرگ و طراحی مینیمال، فضای کافی برای ۸ نفر فراهم می‌کند. ساختار فولادی مستحکم و صفحه چوب نراد خشک‌شده، دوام و زیبایی را تضمین می‌کنند.
+
+امکان سفارش با ابعاد دلخواه و رنگ‌بندی متنوع وجود دارد.`,
+    specs: {
+      dimensions: "۲۴۰ × ۱۲۰ × ۷۵ سانتی‌متر",
+      material: "چوب نراد + فولاد ۲mm",
+      color: "مشکی مات",
+      weight: "۷۰ کیلوگرم",
+      warranty: "ضمانت مادام‌العمر جوشکاری",
+      coating: "رنگ کوره‌ای الکترواستاتیک"
+    },
+    features: [
+      { icon: Shield, title: "ضمانت مادام‌العمر", desc: "تعویض رایگان در صورت نقص" },
+      { icon: Truck, title: "ارسال رایگان", desc: "به سراسر ایران" },
+      { icon: RotateCcw, title: "۷ روز مرجوعی", desc: "بدون سوال" },
+    ],
+    rating: 4.7,
+    reviews: 64,
+    inStock: true,
+    category: "مبلمان اداری"
+  },
+  {
+    id: "5",
+    name: "شلف دیواری مدولار",
+    subtitle: "ترکیب‌بندی دلخواه",
+    price: "۴,۲۰۰,۰۰۰",
+    originalPrice: "۵,۰۰۰,۰۰۰",
+    discount: 16,
+    images: [productShelf, productChair, productDesk],
+    description: "شلف مدولار با امکان ترکیب‌بندی دلخواه، مناسب برای هر فضایی.",
+    longDescription: `شلف دیواری مدولار صنایع مدرن با طراحی منعطف، امکان چیدمان و ترکیب‌بندی متنوع را فراهم می‌کند.
+
+هر ماژول به صورت مستقل قابل نصب است و می‌توانید با ترکیب چند ماژول، شلف دلخواه خود را بسازید. ساختار فولادی سبک و طبقات چوب نراد، زیبایی و کاربردی بودن را همزمان ارائه می‌دهند.`,
+    specs: {
+      dimensions: "۶۰ × ۲۵ × ۶۰ سانتی‌متر (هر ماژول)",
+      material: "چوب نراد + فولاد ۱.۵mm",
+      color: "مشکی مات / قهوه‌ای",
+      weight: "۸ کیلوگرم",
+      warranty: "ضمانت مادام‌العمر",
+      coating: "رنگ کوره‌ای"
+    },
+    features: [
+      { icon: Shield, title: "ضمانت مادام‌العمر", desc: "تعویض رایگان" },
+      { icon: Truck, title: "ارسال رایگان", desc: "سفارش بالای ۲ عدد" },
+      { icon: RotateCcw, title: "۷ روز مرجوعی", desc: "بدون سوال" },
+    ],
+    rating: 4.8,
+    reviews: 203,
+    inStock: true,
+    category: "شلف و کتابخانه"
+  },
+  {
+    id: "6",
+    name: "میز تحریر استودیویی",
+    subtitle: "فضای کاری خلاق",
+    price: "۷,۸۰۰,۰۰۰",
+    originalPrice: "۹,۰۰۰,۰۰۰",
+    discount: 13,
+    images: [productDesk, productChair, productShelf],
+    description: "میز تحریر مناسب برای فضاهای کاری خلاق با طراحی مینیمال و کاربردی.",
+    longDescription: `میز تحریر استودیویی صنایع مدرن، همراه ایده‌آل برای طراحان، نویسندگان و افرادی که به فضای کاری الهام‌بخش نیاز دارند.
+
+طراحی مینیمال با خطوط تمیز و فضای کافی برای مانیتور، لپ‌تاپ و لوازم جانبی. کشوی مخفی برای نظم‌دهی به لوازم و سیستم مدیریت کابل یکپارچه.`,
+    specs: {
+      dimensions: "۱۴۰ × ۶۵ × ۷۵ سانتی‌متر",
+      material: "چوب نراد + فولاد ۲mm",
+      color: "مشکی مات",
+      weight: "۳۲ کیلوگرم",
+      warranty: "ضمانت مادام‌العمر جوشکاری",
+      coating: "رنگ کوره‌ای الکترواستاتیک"
+    },
+    features: [
+      { icon: Shield, title: "ضمانت مادام‌العمر", desc: "تعویض رایگان در صورت نقص" },
+      { icon: Truck, title: "ارسال رایگان", desc: "به سراسر ایران" },
+      { icon: RotateCcw, title: "۷ روز مرجوعی", desc: "بدون سوال" },
+    ],
+    rating: 4.9,
+    reviews: 91,
+    inStock: true,
+    category: "میز تحریر"
   }
 ];
 
@@ -135,7 +227,15 @@ const ProductPage = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  
+
+  // Reset state when navigating between products
+  useEffect(() => {
+    setSelectedImage(0);
+    setQuantity(1);
+    setIsWishlisted(false);
+    window.scrollTo(0, 0);
+  }, [id]);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
